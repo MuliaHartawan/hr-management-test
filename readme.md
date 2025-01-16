@@ -3,7 +3,7 @@
 This project focuses on building a web application that supports the concept of microservices, where users can perform WFH attendance with login, time recording, and photo upload as proof of work features. In addition, this application also provides a monitoring module for HRD admins, allowing efficient management of employee data through CRUD features and control over submitted attendance data. This project was designed using Node.js with Express.js framework for the backend, as well as React.js for the frontend, with a focus on good database structure, optimal API integration, and responsive user interface components.
 
 Below is the application architecture design :
-![image](https://github.com/user-attachments/assets/c72293bd-d67f-4552-b63e-ec167abdde99)
+![image](https://github.com/user-attachments/assets/a1e1c324-a926-4efe-a3de-845d4a04c7d1)
 
 Database design like this
 ![image](https://github.com/user-attachments/assets/3bf44399-f50a-4418-aea2-3f4194aa9b4a)
