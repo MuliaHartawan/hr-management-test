@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  api-gateway:
+    build:
+      context: ./backend/api-gateway
+    container_name: payment-gateway-service
+    ports:
+      - "8000:8000"
+    networks:
+      - hr-management-network
+    env_file:
+      - ./backend/api-gateway/.env
+
+  account-service:
+    build:
+      context: ./backend/account
+    container_name: account-service
+    ports:
+      - "5001:5001"
+    networks:
+      - hr-management-network
+    env_file:
+      - ./backend/account/.env
+
+  employee-service:
+    build:
+      context: ./backend/employee
+    container_name: employee-service
+    ports:
+      - "5002:5002"
+    networks:
+      - hr-management-network
+    env_file:
+      - ./backend/employee/.env
+
+  attendance-service:
+    build:
+      context: ./backend/attendance
+    container_name: attendance-service
+    ports:
+      - "5003:5003"
+    networks:
+      - hr-management-network
+    env_file:
+      - ./backend/attendance/.env
+
+  web:
+    build:
+      context: ./frontend
+    container_name: web-hr-management
+    ports:
+      - "5173:5173"
+    networks:
+      - hr-management-network
+    env_file:
+      - ./frontend/.env
+
+networks:
+  hr-management-network:

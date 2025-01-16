@@ -1,0 +1,10 @@
+[
+  {
+    "menu": "Dashboard",
+    "icon": "/bitmap/dashboard.png"
+  },
+  {
+    "menu": "Absensi",
+    "icon": "/bitmap/absen.png"
+  }
+]
