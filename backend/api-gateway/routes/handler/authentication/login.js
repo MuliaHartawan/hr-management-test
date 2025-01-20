@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     const user = await api.post("/auth/login", req.body);
     const data = user.data;
 
-    const token = jwt.sign({ data }, JWT_SECRET, {
+    const token = jwt.sign({ ...data }, JWT_SECRET, {
       expiresIn: "1d",
     });
 
