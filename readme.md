@@ -33,7 +33,7 @@ Follow the steps below to install the project:
    make run-app
    ```
 
-3. Buat database untuk melayani service yang ada
+3. Create a database to serve existing services
 
 ```sql
 CREATE DATABASE `hr-management-attendance-database`;
