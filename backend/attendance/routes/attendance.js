@@ -24,6 +24,7 @@ router.get("/", async (req, res, next) => {
         )
       );
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json(responseFormatter("error", null, "Error fetching attendances"));
@@ -77,7 +78,7 @@ router.post("/", validateWithZod(checkinAttendanceSchema), async (req, res) => {
         );
     }
 
-    const shift = await shiftRepository.findOne();
+    const shift = await shiftRepository.findById(attendanceData.shift_id);
     const shiftStartTime = moment(shift.start_time, "HH:mm:ss");
     const toleranceTime = moment.duration(shift.tolerance_minutes, "minutes");
     const clockInWithTolerance = shiftStartTime.clone().add(toleranceTime);
@@ -106,6 +107,7 @@ router.post("/", validateWithZod(checkinAttendanceSchema), async (req, res) => {
       .status(201)
       .json(responseFormatter("success", savedAttendance, statusMessage));
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json(responseFormatter("error", null, "Error creating attendance"));
@@ -149,6 +151,20 @@ router.put("/", validateWithZod(checkoutAttendanceSchema), async (req, res) => {
         );
     }
 
+    const shift = await shiftRepository.findById(attendanceData.shift_id);
+    const shiftEndTime = moment(shift.end_time, "HH:mm:ss");
+    let statusMessage = "Successfully checked out.";
+
+    if (clockOutTime.isBefore(shiftEndTime)) {
+      const earlyMinutes = shiftEndTime.diff(clockOutTime, "minutes");
+      const earlyHours = Math.floor(earlyMinutes / 60);
+      const remainingMinutes = earlyMinutes % 60;
+
+      statusMessage = `You checked out ${
+        earlyHours > 0 ? earlyHours + " hour(s) and " : ""
+      }${remainingMinutes} minute(s) earlier than your scheduled shift end time.`;
+    }
+
     const checkoutData = {
       employee_id: attendanceData.employee_id,
       date,
@@ -170,9 +186,7 @@ router.put("/", validateWithZod(checkoutAttendanceSchema), async (req, res) => {
 
     return res
       .status(200)
-      .json(
-        responseFormatter("success", savedCheckout, `Successfully checked out.`)
-      );
+      .json(responseFormatter("success", savedCheckout, statusMessage));
   } catch (error) {
     console.error("Error updating attendance:", error);
     return res
@@ -202,11 +216,61 @@ router.put(
           )
         );
     } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .json(responseFormatter("error", null, "Error approval attendance"));
     }
   }
 );
+
+router.get("/status/:employeeId", async (req, res) => {
+  try {
+    const { employeeId } = req.params;
+    const statusAttendance = await attendanceRepository.status(
+      parseInt(employeeId)
+    );
+
+    return res
+      .status(200)
+      .json(
+        responseFormatter(
+          "success",
+          statusAttendance,
+          "Attendance status fetched successfully"
+        )
+      );
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(responseFormatter("error", null, "Error approval attendance"));
+  }
+});
+
+router.get("/:employeeId", async (req, res, next) => {
+  try {
+    const { employeeId } = req.params;
+    const filters = req.query;
+    const attendances = await attendanceRepository.findByEmployeeId(
+      employeeId,
+      filters
+    );
+    return res
+      .status(200)
+      .json(
+        responseFormatter(
+          "success",
+          attendances,
+          "Employees auth fetched successfully"
+        )
+      );
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(responseFormatter("error", null, "Error fetching attendances"));
+  }
+});
 
 module.exports = router;

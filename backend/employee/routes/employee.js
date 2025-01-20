@@ -20,16 +20,17 @@ router.get("/", async (req, res, next) => {
         )
       );
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json(responseFormatter("error", null, "Error fetching employees"));
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/user/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const employee = await employeeRepository.findById(id);
+    const employee = await employeeRepository.findByUserId(id);
     if (!employee) {
       return res
         .status(404)
@@ -38,7 +39,11 @@ router.get("/:id", async (req, res) => {
     return res
       .status(200)
       .json(
-        responseFormatter("success", employee, "Employee fetched successfully")
+        responseFormatter(
+          "success",
+          employee,
+          "Employee by user id fetched successfully"
+        )
       );
   } catch (error) {
     console.error("Error fetching employee:", error);
@@ -62,6 +67,7 @@ router.post("/", validateWithZod(employeeCreateSchema), async (req, res) => {
         )
       );
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json(responseFormatter("error", null, "Error creating employee"));
@@ -120,6 +126,28 @@ router.delete("/:id", async (req, res) => {
     return res
       .status(500)
       .json(responseFormatter("error", null, "Error deleting employee"));
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const employee = await employeeRepository.findById(id);
+    if (!employee) {
+      return res
+        .status(404)
+        .json(responseFormatter("error", null, "Employee not found"));
+    }
+    return res
+      .status(200)
+      .json(
+        responseFormatter("success", employee, "Employee fetched successfully")
+      );
+  } catch (error) {
+    console.error("Error fetching employee:", error);
+    res
+      .status(500)
+      .json(responseFormatter("error", null, "Error fetching employee"));
   }
 });
 

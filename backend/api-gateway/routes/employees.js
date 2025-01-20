@@ -5,6 +5,7 @@ const employeesHandlers = require("./handler/employees");
 const verifyToken = require("../middleware/auth-middleware");
 
 router.get("/", verifyToken, employeesHandlers.findAll);
+router.get("/user/:id", verifyToken, employeesHandlers.findByUser);
 router.get("/:id", verifyToken, employeesHandlers.findOne);
 router.post("/", verifyToken, employeesHandlers.create);
 router.put("/:id", verifyToken, employeesHandlers.update);

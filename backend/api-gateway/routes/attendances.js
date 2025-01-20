@@ -7,7 +7,6 @@ const verifyToken = require("../middleware/auth-middleware");
 const upload = getUploadMiddleware();
 
 router.get("/", verifyToken, attendancesHandlers.findAll);
-router.get("/:id", verifyToken, attendancesHandlers.findOne);
 router.post(
   "/",
   verifyToken,
@@ -20,7 +19,9 @@ router.put(
   upload.single("clock_out_photo"),
   attendancesHandlers.checkout
 );
-
 router.put("/approval", verifyToken, attendancesHandlers.approval);
+router.get("/detail/:id", verifyToken, attendancesHandlers.findOne);
+router.get("/status", verifyToken, attendancesHandlers.findStatus);
+router.get("/me", verifyToken, attendancesHandlers.findMe);
 
 module.exports = router;

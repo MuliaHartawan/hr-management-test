@@ -14,7 +14,8 @@ const apiAccount = apiAdapter(URL_SERVICE_ACCOUNT);
 module.exports = async (req, res) => {
   try {
     const queries = req.query;
-    const attendances = await api.get(`/attendance`, {
+    const { employee_id } = req.user;
+    const attendances = await api.get(`/attendance/${employee_id}`, {
       params: queries,
       validateStatus: () => true,
     });
@@ -27,7 +28,6 @@ module.exports = async (req, res) => {
         )
       );
     }
-
     const employees = await apiEmployee.get(`/employee`, {
       validateStatus: () => true,
     });

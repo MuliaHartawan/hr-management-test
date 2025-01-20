@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      employee_id: {
-        type: DataTypes.INTEGER,
+      nip: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
       first_name: {

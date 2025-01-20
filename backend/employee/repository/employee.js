@@ -55,4 +55,22 @@ const destroy = async (id) => {
   });
 };
 
-module.exports = { findAll, findById, create, update, destroy };
+const findByUserId = async (userId) => {
+  return await Employee.findOne({
+    where: {
+      user_id: userId,
+    },
+    include: [
+      {
+        model: Department,
+        as: "department",
+      },
+      {
+        model: Position,
+        as: "position",
+      },
+    ],
+  });
+};
+
+module.exports = { findAll, findById, findByUserId, create, update, destroy };

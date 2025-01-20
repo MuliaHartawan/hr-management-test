@@ -7,13 +7,15 @@ const api = apiAdapter(URL_SERVICE_ATTENDACE);
 
 module.exports = async (req, res) => {
   try {
+    const user = req.user;
     const imagePath = req.file ? req.file.filename : null;
     const attendance = await api.post(`/attendance`, {
       employee_id: parseInt(req.body.employee_id),
       clock_in_location: req.body.clock_in_location,
       clock_in_photo: imagePath,
+      shift_id: user.shift_id,
     });
-    return res.json(attendance.data);
+    return res.json(shift.data);
   } catch (error) {
     console.error("Error full details:", error);
     if (error.code === "ECONNREFUSED") {

@@ -16,6 +16,7 @@ router.get("/", async (req, res, next) => {
         responseFormatter("success", shifts, "Shifts fetched successfully")
       );
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json(responseFormatter("error", null, "Error fetching shifts"));
@@ -52,6 +53,7 @@ router.post("/", validateWithZod(shiftCreateSchema), async (req, res) => {
         responseFormatter("success", newShift, "Shift created successfully")
       );
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json(responseFormatter("error", null, "Error creating shift"));

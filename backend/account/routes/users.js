@@ -15,6 +15,7 @@ router.get("/", async (req, res, next) => {
       .status(200)
       .json(responseFormatter("success", users, "Users fetched successfully"));
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json(responseFormatter("error", null, "Error fetching users"));
@@ -70,6 +71,7 @@ router.put("/:id", validateWithZod(userUpdateSchema), async (req, res) => {
   const { id } = req.params;
   const userData = req.body;
   try {
+    console.log("=>", id);
     const user = await userRepository.findById(id);
     if (!user) {
       return res

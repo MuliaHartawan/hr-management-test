@@ -2,6 +2,7 @@ const { User, Role } = require("../models");
 
 const findAll = async () => {
   return User.findAll({
+    attributes: { exclude: ["password"] },
     include: {
       model: Role,
       as: "role",
@@ -12,6 +13,7 @@ const findAll = async () => {
 
 const findById = async (id) => {
   return await User.findByPk(id, {
+    attributes: { exclude: ["password"] },
     include: {
       model: Role,
       as: "role",

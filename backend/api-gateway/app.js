@@ -24,6 +24,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  "/api/v1/uploads",
+  express.static(path.join(__dirname, "public/uploads"))
+);
 
 app.use("/api/v1", indexRouter);
 app.use("/api/v1/auth", authenticationRouter);

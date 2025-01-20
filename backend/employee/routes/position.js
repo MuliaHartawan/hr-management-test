@@ -20,6 +20,7 @@ router.get("/", async (req, res, next) => {
         )
       );
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json(responseFormatter("error", null, "Error fetching positions"));
@@ -62,6 +63,7 @@ router.post("/", validateWithZod(positionCreateSchema), async (req, res) => {
         )
       );
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json(responseFormatter("error", null, "Error creating position"));

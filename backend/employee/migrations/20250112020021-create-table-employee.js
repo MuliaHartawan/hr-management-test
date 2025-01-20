@@ -14,8 +14,8 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      employee_id: {
-        type: Sequelize.INTEGER,
+      nip: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       first_name: {
@@ -31,7 +31,7 @@ module.exports = {
         allowNull: true,
       },
       position_id: {
-        type: Sequelize.STRING(36),
+        type: Sequelize.INTEGER,
         allowNull: true,
       },
       shift_id: {

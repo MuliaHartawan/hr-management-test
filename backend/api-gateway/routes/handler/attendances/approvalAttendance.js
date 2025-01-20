@@ -13,6 +13,7 @@ module.exports = async (req, res) => {
     });
     return res.status(200).json(attendance.data);
   } catch (error) {
+    console.log("=>", error);
     if (error.code === "ECONNREFUSED") {
       return res
         .status(500)

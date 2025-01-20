@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+const { Op, col, fn, literal } = require("sequelize");
 const { Attendance } = require("../models");
 
 const findAll = async (filters) => {
@@ -35,7 +35,7 @@ const findAll = async (filters) => {
 
   return Attendance.findAll({
     where: whereClause,
-    order: [["created_at", "DESC"]],
+    order: [["date", "DESC"]],
     offset: parseInt(offset),
     limit: parseInt(limit),
   });
@@ -62,8 +62,27 @@ const findByDate = async (employeeId) => {
   });
 };
 
-const findByEmployeeId = async (employeeId) => {
+const findByEmployeeId = async (employeeId, filters) => {
+  const { startDate, endDate, status, page = 1, limit = 10 } = filters;
+  const offset = (page - 1) * limit;
+
+  const whereClause = {};
+  if (startDate && endDate) {
+    whereClause.date = {
+      [Op.between]: [startDate, endDate],
+    };
+  }
+
+  if (status) {
+    whereClause.status = status;
+  }
+
   return await Attendance.findAll({
+    where: whereClause,
+    order: [["date", "DESC"]],
+    offset: parseInt(offset),
+    limit: parseInt(limit),
+
     where: {
       employee_id: employeeId,
     },
@@ -115,6 +134,20 @@ const approval = async (attendanceData) => {
   );
 };
 
+const status = (employeeId) => {
+  return Attendance.findOne({
+    attributes: [
+      [col("date"), "date"],
+      [fn("IFNULL", col("clock_in"), null), "clock_in"],
+      [fn("IFNULL", col("clock_out"), null), "clock_out"],
+    ],
+    where: {
+      date: literal("DATE(date) = DATE(NOW())"),
+      employee_id: employeeId,
+    },
+  });
+};
+
 module.exports = {
   findAll,
   findById,
@@ -124,4 +157,5 @@ module.exports = {
   create,
   update,
   destroy,
+  status,
 };
