@@ -13,8 +13,8 @@ RUN npm install
 # Copy the app files
 COPY . .
 
-# Build the app
-RUN npm run build
+# Expose the development port
+EXPOSE 5173
 
 # Run the app
-CMD ["npm", "start"]
+CMD ["npm", "run", "start", "--", "--host"]
