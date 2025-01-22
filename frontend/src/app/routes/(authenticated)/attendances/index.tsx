@@ -23,7 +23,6 @@ const TopActions = () => {
   );
 };
 
-
 const AttendancesPage = () => {
   useEffect(() => {
     document.title = "Attendances";
@@ -40,7 +39,6 @@ const AttendancesPage = () => {
     },
   ];
 
-
   return (
     <PageGuard allowedRoles={[ROLE.HRD, ROLE.STAFF]}>
       <Page
@@ -50,7 +48,6 @@ const AttendancesPage = () => {
         topActions={<TopActions />}
       >
         <AttendancesTable />
-
       </Page>
     </PageGuard>
   );

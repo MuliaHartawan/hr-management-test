@@ -8,12 +8,14 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './app/routes/__root'
+import { Route as NotFoundImport } from './app/routes/not-found'
 import { Route as DeniedImport } from './app/routes/denied'
 import { Route as authenticatedRouteImport } from './app/routes/(authenticated)/route'
-import { Route as IndexImport } from './app/routes/index'
 import { Route as authenticatedDashboardRouteImport } from './app/routes/(authenticated)/dashboard/route'
 import { Route as authenticatedUsersIndexImport } from './app/routes/(authenticated)/users/index'
 import { Route as authenticatedShiftsIndexImport } from './app/routes/(authenticated)/shifts/index'
@@ -41,7 +43,17 @@ import { Route as authenticatedDepartmentsDepartmentIdUpdateIndexImport } from '
 import { Route as authenticatedAttendancesPresenceClockoutIndexImport } from './app/routes/(authenticated)/attendances/presence/clock_out/index'
 import { Route as authenticatedAttendancesPresenceClockinIndexImport } from './app/routes/(authenticated)/attendances/presence/clock_in/index'
 
+// Create Virtual Routes
+
+const Import = createFileRoute('/')()
+
 // Create/Update Routes
+
+const NotFoundRoute = NotFoundImport.update({
+  id: '/not-found',
+  path: '/not-found',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const DeniedRoute = DeniedImport.update({
   id: '/denied',
@@ -51,10 +63,10 @@ const DeniedRoute = DeniedImport.update({
 
 const authenticatedRouteRoute = authenticatedRouteImport.update({
   id: '/(authenticated)',
-  getParentRoute: () => IndexRoute,
+  getParentRoute: () => Route,
 } as any)
 
-const IndexRoute = IndexImport.update({
+const Route = Import.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
@@ -247,7 +259,7 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexImport
+      preLoaderRoute: typeof Import
       parentRoute: typeof rootRoute
     }
     '/(authenticated)': {
@@ -255,13 +267,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof authenticatedRouteImport
-      parentRoute: typeof IndexRoute
+      parentRoute: typeof Route
     }
     '/denied': {
       id: '/denied'
       path: '/denied'
       fullPath: '/denied'
       preLoaderRoute: typeof DeniedImport
+      parentRoute: typeof rootRoute
+    }
+    '/not-found': {
+      id: '/not-found'
+      path: '/not-found'
+      fullPath: '/not-found'
+      preLoaderRoute: typeof NotFoundImport
       parentRoute: typeof rootRoute
     }
     '/(authenticated)/dashboard': {
@@ -537,19 +556,20 @@ const authenticatedRouteRouteChildren: authenticatedRouteRouteChildren = {
 const authenticatedRouteRouteWithChildren =
   authenticatedRouteRoute._addFileChildren(authenticatedRouteRouteChildren)
 
-interface IndexRouteChildren {
+interface RouteChildren {
   authenticatedRouteRoute: typeof authenticatedRouteRouteWithChildren
 }
 
-const IndexRouteChildren: IndexRouteChildren = {
+const RouteChildren: RouteChildren = {
   authenticatedRouteRoute: authenticatedRouteRouteWithChildren,
 }
 
-const IndexRouteWithChildren = IndexRoute._addFileChildren(IndexRouteChildren)
+const RouteWithChildren = Route._addFileChildren(RouteChildren)
 
 export interface FileRoutesByFullPath {
   '/': typeof authenticatedRouteRouteWithChildren
   '/denied': typeof DeniedRoute
+  '/not-found': typeof NotFoundRoute
   '/dashboard': typeof authenticatedDashboardRouteRouteWithChildren
   '/attendances': typeof authenticatedAttendancesIndexRoute
   '/departments': typeof authenticatedDepartmentsIndexRoute
@@ -581,6 +601,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof authenticatedRouteRouteWithChildren
   '/denied': typeof DeniedRoute
+  '/not-found': typeof NotFoundRoute
   '/dashboard': typeof authenticatedDashboardRouteRouteWithChildren
   '/attendances': typeof authenticatedAttendancesIndexRoute
   '/departments': typeof authenticatedDepartmentsIndexRoute
@@ -611,9 +632,10 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRouteWithChildren
+  '/': typeof RouteWithChildren
   '/(authenticated)': typeof authenticatedRouteRouteWithChildren
   '/denied': typeof DeniedRoute
+  '/not-found': typeof NotFoundRoute
   '/(authenticated)/dashboard': typeof authenticatedDashboardRouteRouteWithChildren
   '/(authenticated)/attendances/': typeof authenticatedAttendancesIndexRoute
   '/(authenticated)/departments/': typeof authenticatedDepartmentsIndexRoute
@@ -647,6 +669,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/denied'
+    | '/not-found'
     | '/dashboard'
     | '/attendances'
     | '/departments'
@@ -677,6 +700,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/denied'
+    | '/not-found'
     | '/dashboard'
     | '/attendances'
     | '/departments'
@@ -708,6 +732,7 @@ export interface FileRouteTypes {
     | '/'
     | '/(authenticated)'
     | '/denied'
+    | '/not-found'
     | '/(authenticated)/dashboard'
     | '/(authenticated)/attendances/'
     | '/(authenticated)/departments/'
@@ -738,14 +763,16 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRouteWithChildren
+  Route: typeof RouteWithChildren
   DeniedRoute: typeof DeniedRoute
+  NotFoundRoute: typeof NotFoundRoute
   publicAuthLoginIndexRoute: typeof publicAuthLoginIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRouteWithChildren,
+  Route: RouteWithChildren,
   DeniedRoute: DeniedRoute,
+  NotFoundRoute: NotFoundRoute,
   publicAuthLoginIndexRoute: publicAuthLoginIndexRoute,
 }
 
@@ -761,11 +788,12 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/denied",
+        "/not-found",
         "/(public)/auth/login/"
       ]
     },
     "/": {
-      "filePath": "index.tsx",
+      "filePath": "(authenticated)",
       "children": [
         "/(authenticated)"
       ]
@@ -801,6 +829,9 @@ export const routeTree = rootRoute
     },
     "/denied": {
       "filePath": "denied.tsx"
+    },
+    "/not-found": {
+      "filePath": "not-found.tsx"
     },
     "/(authenticated)/dashboard": {
       "filePath": "(authenticated)/dashboard/route.tsx",

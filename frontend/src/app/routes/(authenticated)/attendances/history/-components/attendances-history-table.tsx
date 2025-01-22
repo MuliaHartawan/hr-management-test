@@ -14,7 +14,7 @@ const columns: ColumnDef<Attendance>[] = [
     header: "Name",
     cell: ({ row }) => (
       <p>
-        {row.original.employee.first_name} {row.original.employee.last_name}
+        {row.original.employee?.first_name} {row.original.employee?.last_name}
       </p>
     ),
   },
@@ -26,9 +26,7 @@ const columns: ColumnDef<Attendance>[] = [
     accessorKey: "clock_in",
     header: "Clock In",
     cell: ({ row }) => (
-      <p>
-        {new Date(row.original.clock_in).toLocaleString()}
-      </p>
+      <p>{new Date(row.original.clock_in).toLocaleString()}</p>
     ),
   },
   {
@@ -37,7 +35,9 @@ const columns: ColumnDef<Attendance>[] = [
     cell: ({ row }) => (
       <p>
         {/* {row.original.clock_out ?  convert to date string */}
-        {row.original.clock_out ? new Date(row.original.clock_out).toLocaleString() : "No clock out"}
+        {row.original.clock_out
+          ? new Date(row.original.clock_out).toLocaleString()
+          : "No clock out"}
       </p>
     ),
   },

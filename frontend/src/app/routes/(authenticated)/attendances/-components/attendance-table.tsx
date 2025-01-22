@@ -44,7 +44,7 @@ const columns: ColumnDef<Attendance>[] = [
     header: "Name",
     cell: ({ row }) => (
       <p>
-        {row.original.employee.first_name} {row.original.employee.last_name}
+        {row.original.employee?.first_name} {row.original.employee?.last_name}
       </p>
     ),
   },
@@ -53,20 +53,20 @@ const columns: ColumnDef<Attendance>[] = [
     header: "Status",
   },
   {
-    accessorKey: 'clock_in',
-    header: 'Clock In',
+    accessorKey: "clock_in",
+    header: "Clock In",
     cell: ({ row }) => (
       <p>{new Date(row.original.clock_in).toLocaleString()}</p>
     ),
   },
   {
-    accessorKey: 'clock_out',
-    header: 'Clock Out',
+    accessorKey: "clock_out",
+    header: "Clock Out",
     cell: ({ row }) => (
       <p>
         {row.original.clock_out
           ? new Date(row.original.clock_out).toLocaleString()
-          : 'No clock out'}
+          : "No clock out"}
       </p>
     ),
   },
@@ -87,7 +87,6 @@ const columns: ColumnDef<Attendance>[] = [
     ),
   },
 ];
-
 
 const Actions = ({
   table,
@@ -188,6 +187,5 @@ export function AttendancesTable() {
       onSearch={setSearchTerm}
       actions={<Actions table={table} approvalId={user?.id} />}
     />
-
   );
 }

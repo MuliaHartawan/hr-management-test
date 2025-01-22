@@ -8,6 +8,7 @@ export interface AuthContextType {
   setIsLoggedIn: (status: boolean) => void;
   setToken: (token: string | null) => void;
   setEmail: (email: string) => void;
+  setRole: (role: string) => void;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(

@@ -11,7 +11,7 @@ const columns: ColumnDef<Attendance>[] = [
     header: "Name",
     cell: ({ row }) => (
       <p>
-        {row.original.employee.first_name} {row.original.employee.last_name}
+        {row.original.employee?.first_name} {row.original.employee?.last_name}
       </p>
     ),
   },

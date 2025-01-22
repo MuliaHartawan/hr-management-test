@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         email,
         setEmail,
         role,
+        setRole,
       }}
     >
       {children}
