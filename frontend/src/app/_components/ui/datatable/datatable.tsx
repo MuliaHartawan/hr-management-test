@@ -17,6 +17,7 @@ export function DataTable<TData extends Record<string, unknown>>({
   columns,
   onPageChange,
   onSearch,
+  actions,
 }: DataTableProps<TData>) {
   return (
     <div className="space-y-4">
@@ -26,6 +27,7 @@ export function DataTable<TData extends Record<string, unknown>>({
           className="max-w-sm"
           onChange={(e) => onSearch(e.target.value)}
         />
+        {actions}
       </div>
 
       <div className="rounded-md border">

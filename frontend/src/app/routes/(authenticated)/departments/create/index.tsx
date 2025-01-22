@@ -12,8 +12,13 @@ import { ROLE } from "@/common/enums/role-enum";
 import { PageGuard } from "@/app/_components/layouts/guard/page-guard";
 import Page from "@/app/_components/layouts/page/main";
 import FormDepartment from "../-components/form-department";
+import { useEffect } from "react";
 
 const CreateDepartmentPage = () => {
+  useEffect(() => {
+      document.title = "Create Department";
+    }, []);
+
   const { mutate } = useCreateDepartment();
 
   const form = useForm<

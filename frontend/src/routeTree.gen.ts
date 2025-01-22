@@ -23,6 +23,8 @@ import { Route as authenticatedAttendancesIndexImport } from './app/routes/(auth
 import { Route as publicAuthLoginIndexImport } from './app/routes/(public)/auth/login/index'
 import { Route as authenticatedUsersCreateIndexImport } from './app/routes/(authenticated)/users/create/index'
 import { Route as authenticatedUsersUserIdIndexImport } from './app/routes/(authenticated)/users/$userId/index'
+import { Route as authenticatedShiftsCreateIndexImport } from './app/routes/(authenticated)/shifts/create/index'
+import { Route as authenticatedShiftsShiftIdIndexImport } from './app/routes/(authenticated)/shifts/$shiftId/index'
 import { Route as authenticatedPositionsCreateIndexImport } from './app/routes/(authenticated)/positions/create/index'
 import { Route as authenticatedPositionsPositionIdIndexImport } from './app/routes/(authenticated)/positions/$positionId/index'
 import { Route as authenticatedDepartmentsCreateIndexImport } from './app/routes/(authenticated)/departments/create/index'
@@ -31,9 +33,13 @@ import { Route as authenticatedDashboardStaffIndexImport } from './app/routes/(a
 import { Route as authenticatedDashboardHrdIndexImport } from './app/routes/(authenticated)/dashboard/hrd/index'
 import { Route as authenticatedAttendancesReportsIndexImport } from './app/routes/(authenticated)/attendances/reports/index'
 import { Route as authenticatedAttendancesHistoryIndexImport } from './app/routes/(authenticated)/attendances/history/index'
+import { Route as authenticatedAttendancesAttendanceIdIndexImport } from './app/routes/(authenticated)/attendances/$attendanceId/index'
 import { Route as authenticatedUsersUserIdUpdateIndexImport } from './app/routes/(authenticated)/users/$userId/update/index'
+import { Route as authenticatedShiftsShiftIdUpdateIndexImport } from './app/routes/(authenticated)/shifts/$shiftId/update/index'
 import { Route as authenticatedPositionsPositionIdUpdateIndexImport } from './app/routes/(authenticated)/positions/$positionId/update/index'
 import { Route as authenticatedDepartmentsDepartmentIdUpdateIndexImport } from './app/routes/(authenticated)/departments/$departmentId/update/index'
+import { Route as authenticatedAttendancesPresenceClockoutIndexImport } from './app/routes/(authenticated)/attendances/presence/clock_out/index'
+import { Route as authenticatedAttendancesPresenceClockinIndexImport } from './app/routes/(authenticated)/attendances/presence/clock_in/index'
 
 // Create/Update Routes
 
@@ -114,6 +120,20 @@ const authenticatedUsersUserIdIndexRoute =
     getParentRoute: () => authenticatedRouteRoute,
   } as any)
 
+const authenticatedShiftsCreateIndexRoute =
+  authenticatedShiftsCreateIndexImport.update({
+    id: '/shifts/create/',
+    path: '/shifts/create/',
+    getParentRoute: () => authenticatedRouteRoute,
+  } as any)
+
+const authenticatedShiftsShiftIdIndexRoute =
+  authenticatedShiftsShiftIdIndexImport.update({
+    id: '/shifts/$shiftId/',
+    path: '/shifts/$shiftId/',
+    getParentRoute: () => authenticatedRouteRoute,
+  } as any)
+
 const authenticatedPositionsCreateIndexRoute =
   authenticatedPositionsCreateIndexImport.update({
     id: '/positions/create/',
@@ -170,10 +190,24 @@ const authenticatedAttendancesHistoryIndexRoute =
     getParentRoute: () => authenticatedRouteRoute,
   } as any)
 
+const authenticatedAttendancesAttendanceIdIndexRoute =
+  authenticatedAttendancesAttendanceIdIndexImport.update({
+    id: '/attendances/$attendanceId/',
+    path: '/attendances/$attendanceId/',
+    getParentRoute: () => authenticatedRouteRoute,
+  } as any)
+
 const authenticatedUsersUserIdUpdateIndexRoute =
   authenticatedUsersUserIdUpdateIndexImport.update({
     id: '/users/$userId/update/',
     path: '/users/$userId/update/',
+    getParentRoute: () => authenticatedRouteRoute,
+  } as any)
+
+const authenticatedShiftsShiftIdUpdateIndexRoute =
+  authenticatedShiftsShiftIdUpdateIndexImport.update({
+    id: '/shifts/$shiftId/update/',
+    path: '/shifts/$shiftId/update/',
     getParentRoute: () => authenticatedRouteRoute,
   } as any)
 
@@ -188,6 +222,20 @@ const authenticatedDepartmentsDepartmentIdUpdateIndexRoute =
   authenticatedDepartmentsDepartmentIdUpdateIndexImport.update({
     id: '/departments/$departmentId/update/',
     path: '/departments/$departmentId/update/',
+    getParentRoute: () => authenticatedRouteRoute,
+  } as any)
+
+const authenticatedAttendancesPresenceClockoutIndexRoute =
+  authenticatedAttendancesPresenceClockoutIndexImport.update({
+    id: '/attendances/presence/clock_out/',
+    path: '/attendances/presence/clock_out/',
+    getParentRoute: () => authenticatedRouteRoute,
+  } as any)
+
+const authenticatedAttendancesPresenceClockinIndexRoute =
+  authenticatedAttendancesPresenceClockinIndexImport.update({
+    id: '/attendances/presence/clock_in/',
+    path: '/attendances/presence/clock_in/',
     getParentRoute: () => authenticatedRouteRoute,
   } as any)
 
@@ -258,6 +306,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authenticatedUsersIndexImport
       parentRoute: typeof authenticatedRouteImport
     }
+    '/(authenticated)/attendances/$attendanceId/': {
+      id: '/(authenticated)/attendances/$attendanceId/'
+      path: '/attendances/$attendanceId'
+      fullPath: '/attendances/$attendanceId'
+      preLoaderRoute: typeof authenticatedAttendancesAttendanceIdIndexImport
+      parentRoute: typeof authenticatedRouteImport
+    }
     '/(authenticated)/attendances/history/': {
       id: '/(authenticated)/attendances/history/'
       path: '/attendances/history'
@@ -314,6 +369,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authenticatedPositionsCreateIndexImport
       parentRoute: typeof authenticatedRouteImport
     }
+    '/(authenticated)/shifts/$shiftId/': {
+      id: '/(authenticated)/shifts/$shiftId/'
+      path: '/shifts/$shiftId'
+      fullPath: '/shifts/$shiftId'
+      preLoaderRoute: typeof authenticatedShiftsShiftIdIndexImport
+      parentRoute: typeof authenticatedRouteImport
+    }
+    '/(authenticated)/shifts/create/': {
+      id: '/(authenticated)/shifts/create/'
+      path: '/shifts/create'
+      fullPath: '/shifts/create'
+      preLoaderRoute: typeof authenticatedShiftsCreateIndexImport
+      parentRoute: typeof authenticatedRouteImport
+    }
     '/(authenticated)/users/$userId/': {
       id: '/(authenticated)/users/$userId/'
       path: '/users/$userId'
@@ -335,6 +404,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof publicAuthLoginIndexImport
       parentRoute: typeof rootRoute
     }
+    '/(authenticated)/attendances/presence/clock_in/': {
+      id: '/(authenticated)/attendances/presence/clock_in/'
+      path: '/attendances/presence/clock_in'
+      fullPath: '/attendances/presence/clock_in'
+      preLoaderRoute: typeof authenticatedAttendancesPresenceClockinIndexImport
+      parentRoute: typeof authenticatedRouteImport
+    }
+    '/(authenticated)/attendances/presence/clock_out/': {
+      id: '/(authenticated)/attendances/presence/clock_out/'
+      path: '/attendances/presence/clock_out'
+      fullPath: '/attendances/presence/clock_out'
+      preLoaderRoute: typeof authenticatedAttendancesPresenceClockoutIndexImport
+      parentRoute: typeof authenticatedRouteImport
+    }
     '/(authenticated)/departments/$departmentId/update/': {
       id: '/(authenticated)/departments/$departmentId/update/'
       path: '/departments/$departmentId/update'
@@ -347,6 +430,13 @@ declare module '@tanstack/react-router' {
       path: '/positions/$positionId/update'
       fullPath: '/positions/$positionId/update'
       preLoaderRoute: typeof authenticatedPositionsPositionIdUpdateIndexImport
+      parentRoute: typeof authenticatedRouteImport
+    }
+    '/(authenticated)/shifts/$shiftId/update/': {
+      id: '/(authenticated)/shifts/$shiftId/update/'
+      path: '/shifts/$shiftId/update'
+      fullPath: '/shifts/$shiftId/update'
+      preLoaderRoute: typeof authenticatedShiftsShiftIdUpdateIndexImport
       parentRoute: typeof authenticatedRouteImport
     }
     '/(authenticated)/users/$userId/update/': {
@@ -385,16 +475,22 @@ interface authenticatedRouteRouteChildren {
   authenticatedPositionsIndexRoute: typeof authenticatedPositionsIndexRoute
   authenticatedShiftsIndexRoute: typeof authenticatedShiftsIndexRoute
   authenticatedUsersIndexRoute: typeof authenticatedUsersIndexRoute
+  authenticatedAttendancesAttendanceIdIndexRoute: typeof authenticatedAttendancesAttendanceIdIndexRoute
   authenticatedAttendancesHistoryIndexRoute: typeof authenticatedAttendancesHistoryIndexRoute
   authenticatedAttendancesReportsIndexRoute: typeof authenticatedAttendancesReportsIndexRoute
   authenticatedDepartmentsDepartmentIdIndexRoute: typeof authenticatedDepartmentsDepartmentIdIndexRoute
   authenticatedDepartmentsCreateIndexRoute: typeof authenticatedDepartmentsCreateIndexRoute
   authenticatedPositionsPositionIdIndexRoute: typeof authenticatedPositionsPositionIdIndexRoute
   authenticatedPositionsCreateIndexRoute: typeof authenticatedPositionsCreateIndexRoute
+  authenticatedShiftsShiftIdIndexRoute: typeof authenticatedShiftsShiftIdIndexRoute
+  authenticatedShiftsCreateIndexRoute: typeof authenticatedShiftsCreateIndexRoute
   authenticatedUsersUserIdIndexRoute: typeof authenticatedUsersUserIdIndexRoute
   authenticatedUsersCreateIndexRoute: typeof authenticatedUsersCreateIndexRoute
+  authenticatedAttendancesPresenceClockinIndexRoute: typeof authenticatedAttendancesPresenceClockinIndexRoute
+  authenticatedAttendancesPresenceClockoutIndexRoute: typeof authenticatedAttendancesPresenceClockoutIndexRoute
   authenticatedDepartmentsDepartmentIdUpdateIndexRoute: typeof authenticatedDepartmentsDepartmentIdUpdateIndexRoute
   authenticatedPositionsPositionIdUpdateIndexRoute: typeof authenticatedPositionsPositionIdUpdateIndexRoute
+  authenticatedShiftsShiftIdUpdateIndexRoute: typeof authenticatedShiftsShiftIdUpdateIndexRoute
   authenticatedUsersUserIdUpdateIndexRoute: typeof authenticatedUsersUserIdUpdateIndexRoute
 }
 
@@ -406,6 +502,8 @@ const authenticatedRouteRouteChildren: authenticatedRouteRouteChildren = {
   authenticatedPositionsIndexRoute: authenticatedPositionsIndexRoute,
   authenticatedShiftsIndexRoute: authenticatedShiftsIndexRoute,
   authenticatedUsersIndexRoute: authenticatedUsersIndexRoute,
+  authenticatedAttendancesAttendanceIdIndexRoute:
+    authenticatedAttendancesAttendanceIdIndexRoute,
   authenticatedAttendancesHistoryIndexRoute:
     authenticatedAttendancesHistoryIndexRoute,
   authenticatedAttendancesReportsIndexRoute:
@@ -418,12 +516,20 @@ const authenticatedRouteRouteChildren: authenticatedRouteRouteChildren = {
     authenticatedPositionsPositionIdIndexRoute,
   authenticatedPositionsCreateIndexRoute:
     authenticatedPositionsCreateIndexRoute,
+  authenticatedShiftsShiftIdIndexRoute: authenticatedShiftsShiftIdIndexRoute,
+  authenticatedShiftsCreateIndexRoute: authenticatedShiftsCreateIndexRoute,
   authenticatedUsersUserIdIndexRoute: authenticatedUsersUserIdIndexRoute,
   authenticatedUsersCreateIndexRoute: authenticatedUsersCreateIndexRoute,
+  authenticatedAttendancesPresenceClockinIndexRoute:
+    authenticatedAttendancesPresenceClockinIndexRoute,
+  authenticatedAttendancesPresenceClockoutIndexRoute:
+    authenticatedAttendancesPresenceClockoutIndexRoute,
   authenticatedDepartmentsDepartmentIdUpdateIndexRoute:
     authenticatedDepartmentsDepartmentIdUpdateIndexRoute,
   authenticatedPositionsPositionIdUpdateIndexRoute:
     authenticatedPositionsPositionIdUpdateIndexRoute,
+  authenticatedShiftsShiftIdUpdateIndexRoute:
+    authenticatedShiftsShiftIdUpdateIndexRoute,
   authenticatedUsersUserIdUpdateIndexRoute:
     authenticatedUsersUserIdUpdateIndexRoute,
 }
@@ -450,6 +556,7 @@ export interface FileRoutesByFullPath {
   '/positions': typeof authenticatedPositionsIndexRoute
   '/shifts': typeof authenticatedShiftsIndexRoute
   '/users': typeof authenticatedUsersIndexRoute
+  '/attendances/$attendanceId': typeof authenticatedAttendancesAttendanceIdIndexRoute
   '/attendances/history': typeof authenticatedAttendancesHistoryIndexRoute
   '/attendances/reports': typeof authenticatedAttendancesReportsIndexRoute
   '/dashboard/hrd': typeof authenticatedDashboardHrdIndexRoute
@@ -458,11 +565,16 @@ export interface FileRoutesByFullPath {
   '/departments/create': typeof authenticatedDepartmentsCreateIndexRoute
   '/positions/$positionId': typeof authenticatedPositionsPositionIdIndexRoute
   '/positions/create': typeof authenticatedPositionsCreateIndexRoute
+  '/shifts/$shiftId': typeof authenticatedShiftsShiftIdIndexRoute
+  '/shifts/create': typeof authenticatedShiftsCreateIndexRoute
   '/users/$userId': typeof authenticatedUsersUserIdIndexRoute
   '/users/create': typeof authenticatedUsersCreateIndexRoute
   '/auth/login': typeof publicAuthLoginIndexRoute
+  '/attendances/presence/clock_in': typeof authenticatedAttendancesPresenceClockinIndexRoute
+  '/attendances/presence/clock_out': typeof authenticatedAttendancesPresenceClockoutIndexRoute
   '/departments/$departmentId/update': typeof authenticatedDepartmentsDepartmentIdUpdateIndexRoute
   '/positions/$positionId/update': typeof authenticatedPositionsPositionIdUpdateIndexRoute
+  '/shifts/$shiftId/update': typeof authenticatedShiftsShiftIdUpdateIndexRoute
   '/users/$userId/update': typeof authenticatedUsersUserIdUpdateIndexRoute
 }
 
@@ -475,6 +587,7 @@ export interface FileRoutesByTo {
   '/positions': typeof authenticatedPositionsIndexRoute
   '/shifts': typeof authenticatedShiftsIndexRoute
   '/users': typeof authenticatedUsersIndexRoute
+  '/attendances/$attendanceId': typeof authenticatedAttendancesAttendanceIdIndexRoute
   '/attendances/history': typeof authenticatedAttendancesHistoryIndexRoute
   '/attendances/reports': typeof authenticatedAttendancesReportsIndexRoute
   '/dashboard/hrd': typeof authenticatedDashboardHrdIndexRoute
@@ -483,11 +596,16 @@ export interface FileRoutesByTo {
   '/departments/create': typeof authenticatedDepartmentsCreateIndexRoute
   '/positions/$positionId': typeof authenticatedPositionsPositionIdIndexRoute
   '/positions/create': typeof authenticatedPositionsCreateIndexRoute
+  '/shifts/$shiftId': typeof authenticatedShiftsShiftIdIndexRoute
+  '/shifts/create': typeof authenticatedShiftsCreateIndexRoute
   '/users/$userId': typeof authenticatedUsersUserIdIndexRoute
   '/users/create': typeof authenticatedUsersCreateIndexRoute
   '/auth/login': typeof publicAuthLoginIndexRoute
+  '/attendances/presence/clock_in': typeof authenticatedAttendancesPresenceClockinIndexRoute
+  '/attendances/presence/clock_out': typeof authenticatedAttendancesPresenceClockoutIndexRoute
   '/departments/$departmentId/update': typeof authenticatedDepartmentsDepartmentIdUpdateIndexRoute
   '/positions/$positionId/update': typeof authenticatedPositionsPositionIdUpdateIndexRoute
+  '/shifts/$shiftId/update': typeof authenticatedShiftsShiftIdUpdateIndexRoute
   '/users/$userId/update': typeof authenticatedUsersUserIdUpdateIndexRoute
 }
 
@@ -502,6 +620,7 @@ export interface FileRoutesById {
   '/(authenticated)/positions/': typeof authenticatedPositionsIndexRoute
   '/(authenticated)/shifts/': typeof authenticatedShiftsIndexRoute
   '/(authenticated)/users/': typeof authenticatedUsersIndexRoute
+  '/(authenticated)/attendances/$attendanceId/': typeof authenticatedAttendancesAttendanceIdIndexRoute
   '/(authenticated)/attendances/history/': typeof authenticatedAttendancesHistoryIndexRoute
   '/(authenticated)/attendances/reports/': typeof authenticatedAttendancesReportsIndexRoute
   '/(authenticated)/dashboard/hrd/': typeof authenticatedDashboardHrdIndexRoute
@@ -510,11 +629,16 @@ export interface FileRoutesById {
   '/(authenticated)/departments/create/': typeof authenticatedDepartmentsCreateIndexRoute
   '/(authenticated)/positions/$positionId/': typeof authenticatedPositionsPositionIdIndexRoute
   '/(authenticated)/positions/create/': typeof authenticatedPositionsCreateIndexRoute
+  '/(authenticated)/shifts/$shiftId/': typeof authenticatedShiftsShiftIdIndexRoute
+  '/(authenticated)/shifts/create/': typeof authenticatedShiftsCreateIndexRoute
   '/(authenticated)/users/$userId/': typeof authenticatedUsersUserIdIndexRoute
   '/(authenticated)/users/create/': typeof authenticatedUsersCreateIndexRoute
   '/(public)/auth/login/': typeof publicAuthLoginIndexRoute
+  '/(authenticated)/attendances/presence/clock_in/': typeof authenticatedAttendancesPresenceClockinIndexRoute
+  '/(authenticated)/attendances/presence/clock_out/': typeof authenticatedAttendancesPresenceClockoutIndexRoute
   '/(authenticated)/departments/$departmentId/update/': typeof authenticatedDepartmentsDepartmentIdUpdateIndexRoute
   '/(authenticated)/positions/$positionId/update/': typeof authenticatedPositionsPositionIdUpdateIndexRoute
+  '/(authenticated)/shifts/$shiftId/update/': typeof authenticatedShiftsShiftIdUpdateIndexRoute
   '/(authenticated)/users/$userId/update/': typeof authenticatedUsersUserIdUpdateIndexRoute
 }
 
@@ -529,6 +653,7 @@ export interface FileRouteTypes {
     | '/positions'
     | '/shifts'
     | '/users'
+    | '/attendances/$attendanceId'
     | '/attendances/history'
     | '/attendances/reports'
     | '/dashboard/hrd'
@@ -537,11 +662,16 @@ export interface FileRouteTypes {
     | '/departments/create'
     | '/positions/$positionId'
     | '/positions/create'
+    | '/shifts/$shiftId'
+    | '/shifts/create'
     | '/users/$userId'
     | '/users/create'
     | '/auth/login'
+    | '/attendances/presence/clock_in'
+    | '/attendances/presence/clock_out'
     | '/departments/$departmentId/update'
     | '/positions/$positionId/update'
+    | '/shifts/$shiftId/update'
     | '/users/$userId/update'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -553,6 +683,7 @@ export interface FileRouteTypes {
     | '/positions'
     | '/shifts'
     | '/users'
+    | '/attendances/$attendanceId'
     | '/attendances/history'
     | '/attendances/reports'
     | '/dashboard/hrd'
@@ -561,11 +692,16 @@ export interface FileRouteTypes {
     | '/departments/create'
     | '/positions/$positionId'
     | '/positions/create'
+    | '/shifts/$shiftId'
+    | '/shifts/create'
     | '/users/$userId'
     | '/users/create'
     | '/auth/login'
+    | '/attendances/presence/clock_in'
+    | '/attendances/presence/clock_out'
     | '/departments/$departmentId/update'
     | '/positions/$positionId/update'
+    | '/shifts/$shiftId/update'
     | '/users/$userId/update'
   id:
     | '__root__'
@@ -578,6 +714,7 @@ export interface FileRouteTypes {
     | '/(authenticated)/positions/'
     | '/(authenticated)/shifts/'
     | '/(authenticated)/users/'
+    | '/(authenticated)/attendances/$attendanceId/'
     | '/(authenticated)/attendances/history/'
     | '/(authenticated)/attendances/reports/'
     | '/(authenticated)/dashboard/hrd/'
@@ -586,11 +723,16 @@ export interface FileRouteTypes {
     | '/(authenticated)/departments/create/'
     | '/(authenticated)/positions/$positionId/'
     | '/(authenticated)/positions/create/'
+    | '/(authenticated)/shifts/$shiftId/'
+    | '/(authenticated)/shifts/create/'
     | '/(authenticated)/users/$userId/'
     | '/(authenticated)/users/create/'
     | '/(public)/auth/login/'
+    | '/(authenticated)/attendances/presence/clock_in/'
+    | '/(authenticated)/attendances/presence/clock_out/'
     | '/(authenticated)/departments/$departmentId/update/'
     | '/(authenticated)/positions/$positionId/update/'
+    | '/(authenticated)/shifts/$shiftId/update/'
     | '/(authenticated)/users/$userId/update/'
   fileRoutesById: FileRoutesById
 }
@@ -638,16 +780,22 @@ export const routeTree = rootRoute
         "/(authenticated)/positions/",
         "/(authenticated)/shifts/",
         "/(authenticated)/users/",
+        "/(authenticated)/attendances/$attendanceId/",
         "/(authenticated)/attendances/history/",
         "/(authenticated)/attendances/reports/",
         "/(authenticated)/departments/$departmentId/",
         "/(authenticated)/departments/create/",
         "/(authenticated)/positions/$positionId/",
         "/(authenticated)/positions/create/",
+        "/(authenticated)/shifts/$shiftId/",
+        "/(authenticated)/shifts/create/",
         "/(authenticated)/users/$userId/",
         "/(authenticated)/users/create/",
+        "/(authenticated)/attendances/presence/clock_in/",
+        "/(authenticated)/attendances/presence/clock_out/",
         "/(authenticated)/departments/$departmentId/update/",
         "/(authenticated)/positions/$positionId/update/",
+        "/(authenticated)/shifts/$shiftId/update/",
         "/(authenticated)/users/$userId/update/"
       ]
     },
@@ -682,6 +830,10 @@ export const routeTree = rootRoute
       "filePath": "(authenticated)/users/index.tsx",
       "parent": "/(authenticated)"
     },
+    "/(authenticated)/attendances/$attendanceId/": {
+      "filePath": "(authenticated)/attendances/$attendanceId/index.tsx",
+      "parent": "/(authenticated)"
+    },
     "/(authenticated)/attendances/history/": {
       "filePath": "(authenticated)/attendances/history/index.tsx",
       "parent": "/(authenticated)"
@@ -714,6 +866,14 @@ export const routeTree = rootRoute
       "filePath": "(authenticated)/positions/create/index.tsx",
       "parent": "/(authenticated)"
     },
+    "/(authenticated)/shifts/$shiftId/": {
+      "filePath": "(authenticated)/shifts/$shiftId/index.tsx",
+      "parent": "/(authenticated)"
+    },
+    "/(authenticated)/shifts/create/": {
+      "filePath": "(authenticated)/shifts/create/index.tsx",
+      "parent": "/(authenticated)"
+    },
     "/(authenticated)/users/$userId/": {
       "filePath": "(authenticated)/users/$userId/index.tsx",
       "parent": "/(authenticated)"
@@ -725,12 +885,24 @@ export const routeTree = rootRoute
     "/(public)/auth/login/": {
       "filePath": "(public)/auth/login/index.tsx"
     },
+    "/(authenticated)/attendances/presence/clock_in/": {
+      "filePath": "(authenticated)/attendances/presence/clock_in/index.tsx",
+      "parent": "/(authenticated)"
+    },
+    "/(authenticated)/attendances/presence/clock_out/": {
+      "filePath": "(authenticated)/attendances/presence/clock_out/index.tsx",
+      "parent": "/(authenticated)"
+    },
     "/(authenticated)/departments/$departmentId/update/": {
       "filePath": "(authenticated)/departments/$departmentId/update/index.tsx",
       "parent": "/(authenticated)"
     },
     "/(authenticated)/positions/$positionId/update/": {
       "filePath": "(authenticated)/positions/$positionId/update/index.tsx",
+      "parent": "/(authenticated)"
+    },
+    "/(authenticated)/shifts/$shiftId/update/": {
+      "filePath": "(authenticated)/shifts/$shiftId/update/index.tsx",
       "parent": "/(authenticated)"
     },
     "/(authenticated)/users/$userId/update/": {

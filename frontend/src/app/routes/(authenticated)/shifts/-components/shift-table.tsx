@@ -1,28 +1,17 @@
 import { DataTable } from "@/app/_components/ui/datatable/datatable";
+import { useAuth } from "@/app/_hooks/auth/use-auth";
 import { useDataTable } from "@/app/_hooks/datatables/use-datatable";
 import { Shift } from "@/common/types/shift";
 import { api } from "@/libs/axios/axios";
 import { DataTableResponse } from "@/types/table";
 import { ColumnDef } from "@tanstack/react-table";
 
-const columns: ColumnDef<Shift>[] = [
-  {
-    accessorKey: "name",
-    header: "Name",
-  },
-  {
-    accessorKey: "start_time",
-    header: "Start Time",
-  },
-  { accessorKey: "end_time", header: "End Time" },
-  { accessorKey: "tolerance_minutes", header: "Tolerance Minutes" },
-  {
-    accessorKey: "created_at",
-    header: "Created At",
-  },
-];
+type Props = {
+  columns: ColumnDef<Shift>[];
+};
 
-export function ShiftsDataTable() {
+export function ShiftsDataTable({ columns }: Props) {
+  const { token } = useAuth();
   const { table, isLoading, setPage, setPageSize, setSearchTerm } =
     useDataTable<Shift>({
       columns,
@@ -30,11 +19,9 @@ export function ShiftsDataTable() {
       fetchData: async () => {
         const response = await api.get<DataTableResponse<Shift>>("/shift", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         });
-
-        console.log(response.data);
 
         return response.data;
       },

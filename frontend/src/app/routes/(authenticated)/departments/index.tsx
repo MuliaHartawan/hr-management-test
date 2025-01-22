@@ -2,7 +2,7 @@ import { PageGuard } from "@/app/_components/layouts/guard/page-guard";
 import { ROLE } from "@/common/enums/role-enum";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DepartmentsDataTable } from "./-components/departments-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDeleteDepartment } from "./-hooks/use-delete-department";
 import { Department } from "@/common/types/department";
 import { ColumnDef } from "@tanstack/react-table";
@@ -13,6 +13,10 @@ import Page from "@/app/_components/layouts/page/main";
 import { DeleteDepartmentDialog } from "./-components/delete-user-dialog";
 
 const DepartmentsPage = () => {
+  useEffect(() => {
+    document.title = "Departments";
+  }, []);
+
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [selectedDepartmentId, setSelectedDepartmentId] = useState<
     number | null

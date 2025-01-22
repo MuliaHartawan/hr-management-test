@@ -12,8 +12,13 @@ import { PageGuard } from "@/app/_components/layouts/guard/page-guard";
 import { ROLE } from "@/common/enums/role-enum";
 import Page from "@/app/_components/layouts/page/main";
 import FormPosition from "../-components/form-position";
+import { useEffect } from "react";
 
 const CreatePositionPage = () => {
+  useEffect(() => {
+      document.title = "Create Position";
+    }, []);
+
   const { mutate } = useCreatePosition();
 
   const form = useForm<TCreatePositionValidation | TUpdatePositionValidation>({

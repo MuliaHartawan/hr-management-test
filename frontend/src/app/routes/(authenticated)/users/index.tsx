@@ -8,12 +8,16 @@ import { Button } from "@/app/_components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { User } from "@/common/types/user";
 import { EditIcon, EyeIcon, TrashIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDeleteUser } from "./-hooks/use-delete-user";
 import { DeleteUserDialog } from "./-components/delete-user-dialog";
 import { Badge } from "@/app/_components/ui/badge";
 
 const UsersPage = () => {
+  useEffect(() => {
+    document.title = "Users";
+  }, []);
+
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 

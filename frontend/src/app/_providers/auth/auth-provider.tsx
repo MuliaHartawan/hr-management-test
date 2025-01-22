@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => !!token);
   const [email, setEmail] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
-  const { data: user } = useUser();
+  const { data: user, isLoading } = useUser();
 
   useEffect(() => {
     if (token && user) {
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       setRole(user.role.name);
     }
-  }, [token, user]);
+  }, [token, user, isLoading]);
 
   return (
     <AuthContext.Provider

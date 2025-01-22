@@ -16,6 +16,9 @@ export function useDataTable<TData extends Record<string, unknown>>({
   columns,
   queryKey,
   fetchData,
+  rowSelection,
+  enabled,
+  setRowSelection,
 }: UseDataTableProps<TData>) {
   const [state, setState] = useState<DataTableState>({
     page: 1,
@@ -23,10 +26,13 @@ export function useDataTable<TData extends Record<string, unknown>>({
     searchTerm: "",
     filters: {},
   });
+  
+
 
   const { data, isLoading } = useQuery<DataTableResponse<TData>>({
     queryKey: [queryKey, state],
     queryFn: () => fetchData(state),
+    enabled
   });
 
   const table = useReactTable<TData>({
@@ -36,11 +42,13 @@ export function useDataTable<TData extends Record<string, unknown>>({
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     pageCount: Math.ceil((data?.total ?? 0) / state.pageSize),
+    onRowSelectionChange: setRowSelection,
     state: {
       pagination: {
         pageIndex: state.page - 1,
         pageSize: state.pageSize,
       },
+      rowSelection: rowSelection,
     },
   });
 

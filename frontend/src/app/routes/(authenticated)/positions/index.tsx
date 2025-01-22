@@ -9,10 +9,14 @@ import { TBreadcrumb } from "@/app/_components/types/breadcrumb-types";
 import { Button } from "@/app/_components/ui/button";
 import { useDeletePosition } from "./-hooks/use-delete-position";
 import { DeletePositionDialog } from "./-components/delete-position-dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EditIcon, EyeIcon, TrashIcon } from "lucide-react";
 
 const PositionsPage = () => {
+  useEffect(() => {
+      document.title = "Positions";
+    }, []);
+
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [selectedPositionId, setSelectedPositionId] = useState<number | null>(
     null

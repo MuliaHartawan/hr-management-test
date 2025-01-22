@@ -12,8 +12,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TBreadcrumb } from "@/app/_components/types/breadcrumb-types";
 import { TUpdateUserValidation } from "../-validations/update-user-validation";
+import { useEffect } from "react";
 
 const CreateUserPage = () => {
+  useEffect(() => {
+      document.title = "Create User";
+    }, []);
+
   const { mutate } = useCreateUser();
 
   const form = useForm<TCreateUserValidation | TUpdateUserValidation>({

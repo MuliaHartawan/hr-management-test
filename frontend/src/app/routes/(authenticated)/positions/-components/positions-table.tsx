@@ -24,8 +24,6 @@ export function PositionsDataTable({ columns }: Props) {
           }
         );
 
-        console.log(response.data);
-
         return response.data;
       },
     });

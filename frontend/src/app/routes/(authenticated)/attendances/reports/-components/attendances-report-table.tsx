@@ -48,10 +48,6 @@ export function AttendancesReportTable() {
           }
         );
 
-        console.log(response);
-
-        console.log(response.data);
-
         return response.data;
       },
     });
