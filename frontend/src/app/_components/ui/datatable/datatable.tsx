@@ -21,7 +21,7 @@ export function DataTable<TData extends Record<string, unknown>>({
 }: DataTableProps<TData>) {
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <Input
           placeholder="Search..."
           className="max-w-sm"

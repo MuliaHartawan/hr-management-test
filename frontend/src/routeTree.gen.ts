@@ -42,6 +42,7 @@ import { Route as authenticatedPositionsPositionIdUpdateIndexImport } from './ap
 import { Route as authenticatedDepartmentsDepartmentIdUpdateIndexImport } from './app/routes/(authenticated)/departments/$departmentId/update/index'
 import { Route as authenticatedAttendancesPresenceClockoutIndexImport } from './app/routes/(authenticated)/attendances/presence/clock_out/index'
 import { Route as authenticatedAttendancesPresenceClockinIndexImport } from './app/routes/(authenticated)/attendances/presence/clock_in/index'
+import { Route as authenticatedAttendancesHistoryEmployeeIdIndexImport } from './app/routes/(authenticated)/attendances/history/$employeeId/index'
 
 // Create Virtual Routes
 
@@ -251,6 +252,13 @@ const authenticatedAttendancesPresenceClockinIndexRoute =
     getParentRoute: () => authenticatedRouteRoute,
   } as any)
 
+const authenticatedAttendancesHistoryEmployeeIdIndexRoute =
+  authenticatedAttendancesHistoryEmployeeIdIndexImport.update({
+    id: '/attendances/history/$employeeId/',
+    path: '/attendances/history/$employeeId/',
+    getParentRoute: () => authenticatedRouteRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -423,6 +431,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof publicAuthLoginIndexImport
       parentRoute: typeof rootRoute
     }
+    '/(authenticated)/attendances/history/$employeeId/': {
+      id: '/(authenticated)/attendances/history/$employeeId/'
+      path: '/attendances/history/$employeeId'
+      fullPath: '/attendances/history/$employeeId'
+      preLoaderRoute: typeof authenticatedAttendancesHistoryEmployeeIdIndexImport
+      parentRoute: typeof authenticatedRouteImport
+    }
     '/(authenticated)/attendances/presence/clock_in/': {
       id: '/(authenticated)/attendances/presence/clock_in/'
       path: '/attendances/presence/clock_in'
@@ -505,6 +520,7 @@ interface authenticatedRouteRouteChildren {
   authenticatedShiftsCreateIndexRoute: typeof authenticatedShiftsCreateIndexRoute
   authenticatedUsersUserIdIndexRoute: typeof authenticatedUsersUserIdIndexRoute
   authenticatedUsersCreateIndexRoute: typeof authenticatedUsersCreateIndexRoute
+  authenticatedAttendancesHistoryEmployeeIdIndexRoute: typeof authenticatedAttendancesHistoryEmployeeIdIndexRoute
   authenticatedAttendancesPresenceClockinIndexRoute: typeof authenticatedAttendancesPresenceClockinIndexRoute
   authenticatedAttendancesPresenceClockoutIndexRoute: typeof authenticatedAttendancesPresenceClockoutIndexRoute
   authenticatedDepartmentsDepartmentIdUpdateIndexRoute: typeof authenticatedDepartmentsDepartmentIdUpdateIndexRoute
@@ -539,6 +555,8 @@ const authenticatedRouteRouteChildren: authenticatedRouteRouteChildren = {
   authenticatedShiftsCreateIndexRoute: authenticatedShiftsCreateIndexRoute,
   authenticatedUsersUserIdIndexRoute: authenticatedUsersUserIdIndexRoute,
   authenticatedUsersCreateIndexRoute: authenticatedUsersCreateIndexRoute,
+  authenticatedAttendancesHistoryEmployeeIdIndexRoute:
+    authenticatedAttendancesHistoryEmployeeIdIndexRoute,
   authenticatedAttendancesPresenceClockinIndexRoute:
     authenticatedAttendancesPresenceClockinIndexRoute,
   authenticatedAttendancesPresenceClockoutIndexRoute:
@@ -590,6 +608,7 @@ export interface FileRoutesByFullPath {
   '/users/$userId': typeof authenticatedUsersUserIdIndexRoute
   '/users/create': typeof authenticatedUsersCreateIndexRoute
   '/auth/login': typeof publicAuthLoginIndexRoute
+  '/attendances/history/$employeeId': typeof authenticatedAttendancesHistoryEmployeeIdIndexRoute
   '/attendances/presence/clock_in': typeof authenticatedAttendancesPresenceClockinIndexRoute
   '/attendances/presence/clock_out': typeof authenticatedAttendancesPresenceClockoutIndexRoute
   '/departments/$departmentId/update': typeof authenticatedDepartmentsDepartmentIdUpdateIndexRoute
@@ -622,6 +641,7 @@ export interface FileRoutesByTo {
   '/users/$userId': typeof authenticatedUsersUserIdIndexRoute
   '/users/create': typeof authenticatedUsersCreateIndexRoute
   '/auth/login': typeof publicAuthLoginIndexRoute
+  '/attendances/history/$employeeId': typeof authenticatedAttendancesHistoryEmployeeIdIndexRoute
   '/attendances/presence/clock_in': typeof authenticatedAttendancesPresenceClockinIndexRoute
   '/attendances/presence/clock_out': typeof authenticatedAttendancesPresenceClockoutIndexRoute
   '/departments/$departmentId/update': typeof authenticatedDepartmentsDepartmentIdUpdateIndexRoute
@@ -656,6 +676,7 @@ export interface FileRoutesById {
   '/(authenticated)/users/$userId/': typeof authenticatedUsersUserIdIndexRoute
   '/(authenticated)/users/create/': typeof authenticatedUsersCreateIndexRoute
   '/(public)/auth/login/': typeof publicAuthLoginIndexRoute
+  '/(authenticated)/attendances/history/$employeeId/': typeof authenticatedAttendancesHistoryEmployeeIdIndexRoute
   '/(authenticated)/attendances/presence/clock_in/': typeof authenticatedAttendancesPresenceClockinIndexRoute
   '/(authenticated)/attendances/presence/clock_out/': typeof authenticatedAttendancesPresenceClockoutIndexRoute
   '/(authenticated)/departments/$departmentId/update/': typeof authenticatedDepartmentsDepartmentIdUpdateIndexRoute
@@ -690,6 +711,7 @@ export interface FileRouteTypes {
     | '/users/$userId'
     | '/users/create'
     | '/auth/login'
+    | '/attendances/history/$employeeId'
     | '/attendances/presence/clock_in'
     | '/attendances/presence/clock_out'
     | '/departments/$departmentId/update'
@@ -721,6 +743,7 @@ export interface FileRouteTypes {
     | '/users/$userId'
     | '/users/create'
     | '/auth/login'
+    | '/attendances/history/$employeeId'
     | '/attendances/presence/clock_in'
     | '/attendances/presence/clock_out'
     | '/departments/$departmentId/update'
@@ -753,6 +776,7 @@ export interface FileRouteTypes {
     | '/(authenticated)/users/$userId/'
     | '/(authenticated)/users/create/'
     | '/(public)/auth/login/'
+    | '/(authenticated)/attendances/history/$employeeId/'
     | '/(authenticated)/attendances/presence/clock_in/'
     | '/(authenticated)/attendances/presence/clock_out/'
     | '/(authenticated)/departments/$departmentId/update/'
@@ -819,6 +843,7 @@ export const routeTree = rootRoute
         "/(authenticated)/shifts/create/",
         "/(authenticated)/users/$userId/",
         "/(authenticated)/users/create/",
+        "/(authenticated)/attendances/history/$employeeId/",
         "/(authenticated)/attendances/presence/clock_in/",
         "/(authenticated)/attendances/presence/clock_out/",
         "/(authenticated)/departments/$departmentId/update/",
@@ -915,6 +940,10 @@ export const routeTree = rootRoute
     },
     "/(public)/auth/login/": {
       "filePath": "(public)/auth/login/index.tsx"
+    },
+    "/(authenticated)/attendances/history/$employeeId/": {
+      "filePath": "(authenticated)/attendances/history/$employeeId/index.tsx",
+      "parent": "/(authenticated)"
     },
     "/(authenticated)/attendances/presence/clock_in/": {
       "filePath": "(authenticated)/attendances/presence/clock_in/index.tsx",

@@ -7,6 +7,8 @@ import { TBreadcrumb } from "@/app/_components/types/breadcrumb-types";
 import { AttendancesTable } from "./-components/attendance-table";
 import { ComponentGuard } from "@/app/_components/layouts/guard/component-guard";
 import { useEffect } from "react";
+import Clock from "react-live-clock";
+import { Badge } from "@/app/_components/ui/badge";
 
 const TopActions = () => {
   return (
@@ -42,7 +44,13 @@ const AttendancesPage = () => {
   return (
     <PageGuard allowedRoles={[ROLE.HRD, ROLE.STAFF]}>
       <Page
-        title="Attendances"
+        title={
+          <>
+            Attendaces | <Badge className="text-xl " variant={"outline"}>
+              <Clock ticking={true} timezone="Asia/Jakarta" format="hh:mm:ss" />
+            </Badge>
+          </>
+        }
         breadcrumbs={breadcrumbs}
         description="List of attendances"
         topActions={<TopActions />}

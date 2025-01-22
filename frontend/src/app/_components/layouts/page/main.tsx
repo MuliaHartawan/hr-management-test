@@ -6,7 +6,7 @@ import { Loading } from "../../skeleton";
 interface PageProps {
   topActions?: React.ReactNode;
   breadcrumbs?: TBreadcrumb[];
-  title?: string;
+  title?: React.ReactNode;
   description?: string;
   subTitle?: string;
   children: React.ReactNode;

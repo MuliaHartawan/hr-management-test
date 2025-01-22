@@ -22,7 +22,6 @@ import { ROLE } from "@/common/enums/role-enum";
 import {
   BookUserIcon,
   ClockIcon,
-  FileCheckIcon,
   FileClockIcon,
   GaugeIcon,
   LandmarkIcon,
@@ -91,12 +90,6 @@ const NavBarMenus: TNavbarMenu[] = [
         path: "/attendances/history",
         icon: <FileClockIcon />,
         role: [ROLE.STAFF, ROLE.HRD],
-      },
-      {
-        label: "Attendance Report",
-        path: "/attendances/reports",
-        icon: <FileCheckIcon />,
-        role: [ROLE.HRD],
       },
     ],
   },
