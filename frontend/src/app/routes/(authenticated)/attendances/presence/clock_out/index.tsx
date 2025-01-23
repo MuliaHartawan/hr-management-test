@@ -58,7 +58,7 @@ function RouteComponent() {
   }, [data]);
 
   const handleSubmit = () => {
-    const formattedLocation = `https://www.google.com/maps?q=${location?.latitude},${location?.longitude}`;
+    const formattedLocation = `${location?.latitude},${location?.longitude}`;
 
     mutate({
       photo: photo!,

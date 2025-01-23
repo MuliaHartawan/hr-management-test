@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
     };
 
     return res.json(
-      responseFormatter("success", "Dashboard fetched successfully ", data)
+      responseFormatter("success",  data, "Dashboard fetched successfully ")
     );
   } catch (error) {
     console.log("=>", error);

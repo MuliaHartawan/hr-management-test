@@ -88,7 +88,7 @@ export const AttendancePage = () => {
               <TableCell>
                 {data?.clock_in_location ? (
                   <RenderGoogleMap
-                    location={data?.clock_in_location}
+                    location={`https://www.google.com/maps?q=${data?.clock_in_location}`}
                     width="100%"
                     height="300px"
                   />
@@ -122,7 +122,7 @@ export const AttendancePage = () => {
               <TableCell>
                 {data?.clock_out_location ? (
                   <RenderGoogleMap
-                    location={data?.clock_out_location}
+                    location={`https://www.google.com/maps?q=${data?.clock_out_location}`}
                     width="100%"
                     height="300px"
                   />
