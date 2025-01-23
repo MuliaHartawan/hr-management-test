@@ -8,6 +8,8 @@ import { ROLE } from "@/common/enums/role-enum";
 import Page from "@/app/_components/layouts/page/main";
 import { Button } from "@/app/_components/ui/button";
 import { handleTakePhoto } from "../clock_in/-utils/handle-take-photo";
+import Clock from "react-live-clock";
+import { Badge } from "@/app/_components/ui/badge";
 
 export const Route = createFileRoute(
   "/(authenticated)/attendances/presence/clock_out/"
@@ -69,7 +71,20 @@ function RouteComponent() {
     <PageGuard allowedRoles={[ROLE.STAFF]}>
       <Page isLoading={isLoading}>
         <div className="flex flex-col items-center">
-          <h1 className="text-xl font-bold">Take Photo</h1>
+          <div className="relative w-full">
+            <h1 className="absolute left-1/2 -translate-x-1/2 text-xl font-bold">
+              Take Photo
+            </h1>
+            <div className="flex justify-end">
+              <Badge className="text-xl" variant="outline">
+                <Clock
+                  ticking={true}
+                  timezone="Asia/Jakarta"
+                  format="hh:mm:ss"
+                />
+              </Badge>
+            </div>
+          </div>
 
           {!photo ? (
             <div className="flex flex-col items-center w-full">
