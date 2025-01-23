@@ -1,9 +1,9 @@
 install-app:
-	cd backend/api-gateway && pnpm install && cp .env.example .env
-	cd backend/account && pnpm install && cp .env.example .env
-	cd backend/attendance && pnpm install && cp .env.example .env
-	cd backend/employee && pnpm install && cp .env.example .env
-	cd frontend && pnpm install && cp .env.example .env
+	cd backend/api-gateway  && cp .env.example .env
+	cd backend/account  && cp .env.example .env
+	cd backend/attendance  && cp .env.example .env
+	cd backend/employee  && cp .env.example .env
+	cd frontend  && cp .env.example .env
 
 run-migration:
 	cd backend/account && pnpm sequelize db:migrate
