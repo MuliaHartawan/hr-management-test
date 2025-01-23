@@ -12,9 +12,10 @@ Database design like this
 
 Before getting started, make sure you have the following installed on your machine:
 
-- **Docker**: To run the application in containers.
-- **Node.js**: The latest version to ensure compatibility.
-- **MySQl**: Running on local machine
+- **Docker**: 4.37.2
+- **Node.js**: 20.18.1
+- **MySQl**: 8.2.4
+- **PNPM**: 9.5.0
 
 ## Installation Steps 🚀
 
@@ -30,24 +31,36 @@ Follow the steps below to install the project:
 2. Copy the example environment file:
 
    ```bash
-   make run-app
+   make install-app
    ```
 
 3. Create a database to serve existing services
 
-```sql
-CREATE DATABASE `hr-management-attendance-database`;
-CREATE DATABASE `hr-management-employee-database`;
-CREATE DATABASE `hr-management-user-database`;
-```
+   ```sql
+   CREATE DATABASE `hr-management-attendance-database`;
+   CREATE DATABASE `hr-management-employee-database`;
+   CREATE DATABASE `hr-management-user-database`;
+   ```
 
-4. Build and run with Docker:
+4. Run migration
+
+   ```sql
+   make run-migration
+   ```
+
+5. Run the seeder to be able to create the authentication data
+
+   ```sql
+   make run-seeder
+   ```
+
+6. Build and run with Docker:
 
    ```bash
    docker compose up --build -d
    ```
 
-5. Access the application at `http://localhost:5173`
+7. Access the application at `http://localhost:5173`
 
 ## API Documentation 📚
 
