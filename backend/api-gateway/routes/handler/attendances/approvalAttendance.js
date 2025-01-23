@@ -7,7 +7,7 @@ const api = apiAdapter(URL_SERVICE_ATTENDACE);
 module.exports = async (req, res) => {
   try {
     const attendance = await api.put(`/attendance/approval`, {
-      verified_by: req.user.data.id,
+      verified_by: parseInt(req.user.employee_id),
       attendance_ids: req.body.attendance_ids,
       status: req.body.status,
     });

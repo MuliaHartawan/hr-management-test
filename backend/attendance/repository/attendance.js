@@ -148,6 +148,31 @@ const status = (employeeId) => {
   });
 };
 
+const countStatusPending = () => {
+  return Attendance.findOne({
+    attributes: [[fn("COUNT", col("id")), "statusPending"]],
+    where: {
+      status: "PENDING",
+    },
+  });
+};
+
+const findAllMarkerAttendance = () => {
+  return Attendance.findAll({
+    attributes: [
+      "date",
+      "employee_id",
+      "clock_in",
+      "clock_in_photo",
+      "clock_in_location",
+      "clock_out",
+      "clock_out_photo",
+      "clock_out_location",
+    ],
+    order: [["date", "DESC"]],
+  });
+};
+
 module.exports = {
   findAll,
   findById,
@@ -158,4 +183,6 @@ module.exports = {
   update,
   destroy,
   status,
+  countStatusPending,
+  findAllMarkerAttendance,
 };

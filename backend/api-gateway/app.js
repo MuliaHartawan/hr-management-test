@@ -14,7 +14,7 @@ var employeesRouter = require("./routes/employees");
 var shiftsRouter = require("./routes/shifts");
 var attendancesRouter = require("./routes/attendances");
 var reportsRouter = require("./routes/report");
-const corsOptions = require("./commons/http/cors");
+var dashboardsRouter = require("./routes/dashboard");
 
 var app = express();
 app.use(cors());
@@ -38,5 +38,6 @@ app.use("/api/v1/employee", employeesRouter);
 app.use("/api/v1/shift", shiftsRouter);
 app.use("/api/v1/attendance", attendancesRouter);
 app.use("/api/v1/report", reportsRouter);
+app.use("/api/v1/dashboard", dashboardsRouter);
 
 module.exports = app;

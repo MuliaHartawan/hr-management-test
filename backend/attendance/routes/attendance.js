@@ -247,6 +247,45 @@ router.get("/status/:employeeId", async (req, res) => {
       .json(responseFormatter("error", null, "Error approval attendance"));
   }
 });
+router.get("/marker", async (req, res, next) => {
+  try {
+    const attendances = await attendanceRepository.findAllMarkerAttendance();
+    return res
+      .status(200)
+      .json(
+        responseFormatter(
+          "success",
+          attendances,
+          "Attendance marker fetched successfully"
+        )
+      );
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(responseFormatter("error", null, "Error fetching attendances"));
+  }
+});
+
+router.get("/count", async (req, res, next) => {
+  try {
+    const attendances = await attendanceRepository.countStatusPending();
+    return res
+      .status(200)
+      .json(
+        responseFormatter(
+          "success",
+          attendances,
+          "Attendance count fetched successfully"
+        )
+      );
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json(responseFormatter("error", null, "Error fetching attendances"));
+  }
+});
 
 router.get("/:employeeId", async (req, res, next) => {
   try {
@@ -262,7 +301,7 @@ router.get("/:employeeId", async (req, res, next) => {
         responseFormatter(
           "success",
           attendances,
-          "Employees auth fetched successfully"
+          "Attendance me fetched successfully"
         )
       );
   } catch (error) {

@@ -73,4 +73,16 @@ const findByUserId = async (userId) => {
   });
 };
 
-module.exports = { findAll, findById, findByUserId, create, update, destroy };
+const countEmployee = async () => {
+  return await Employee.count();
+};
+
+module.exports = {
+  findAll,
+  findById,
+  findByUserId,
+  create,
+  update,
+  destroy,
+  countEmployee,
+};

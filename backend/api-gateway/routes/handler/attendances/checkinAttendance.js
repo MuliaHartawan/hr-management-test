@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
       clock_in_photo: imagePath,
       shift_id: user.shift_id,
     });
-    return res.json(shift.data);
+    return res.json(attendance.data);
   } catch (error) {
     console.error("Error full details:", error);
     if (error.code === "ECONNREFUSED") {

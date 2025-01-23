@@ -6,9 +6,7 @@ const api = apiAdapter(URL_SERVICE_ATTENDACE);
 
 module.exports = async (req, res) => {
   try {
-    console.log("=>", req.shift);
-    const id = req.shift.data.id;
-
+    const { id } = req.params;
     const shift = await api.get(`/shift/${id}`);
     return res.json(shift.data);
   } catch (error) {

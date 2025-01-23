@@ -129,6 +129,26 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.get("/count", async (req, res) => {
+  try {
+    const employee = await employeeRepository.countEmployee();
+    return res
+      .status(200)
+      .json(
+        responseFormatter(
+          "success",
+          employee,
+          "Employee count fetched successfully"
+        )
+      );
+  } catch (error) {
+    console.error("Error fetching employee:", error);
+    res
+      .status(500)
+      .json(responseFormatter("error", null, "Error fetching employee"));
+  }
+});
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {

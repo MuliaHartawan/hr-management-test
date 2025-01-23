@@ -8,21 +8,10 @@ const apiEmployee = apiAdapter(URL_SERVICE_INTERNAL_MANAGEMENT);
 
 module.exports = async (req, res) => {
   try {
-    const queries = req.query;
-    const { employee_id } = req.user;
-    const attendances = await api.get(`/attendance/${employee_id}`, {
-      params: queries,
-      validateStatus: () => true,
-    });
-    if (attendances.data?.data == null) {
-      return res.json(
-        responseFormatter(
-          attendances.data?.status,
-          mappedAttendances,
-          attendances.data?.message
-        )
-      );
-    }
+    const employeeCount = await apiEmployee.get(`/employee/count`);
+    const attendanceMarker = await api.get(`/attendance/marker`);
+    const attendanceCount = await api.get(`/attendance/count`);
+
     const employees = await apiEmployee.get(`/employee`, {
       validateStatus: () => true,
     });
@@ -31,20 +20,22 @@ module.exports = async (req, res) => {
       employees.data.data.map((employee) => [employee.id, employee])
     );
 
-    const mappedAttendances = attendances.data.data.map((attendance) => ({
+    const mappedAttendances = attendanceMarker.data.data.map((attendance) => ({
       ...attendance,
-      verifiedBy: employeeMap.get(attendance.verified_by) || null,
       employee: employeeMap.get(attendance.employee_id) || null,
     }));
 
+    const data = {
+      employeeCount: employeeCount.data.data,
+      attendanceCount: mappedAttendances,
+      attendanceMarker: attendanceMarker.data.data,
+    };
+
     return res.json(
-      responseFormatter(
-        attendances.data?.status,
-        mappedAttendances,
-        attendances.data?.message
-      )
+      responseFormatter("success", "Dashboard fetched successfully ", data)
     );
   } catch (error) {
+    console.log("=>", error);
     if (error.code === "ECONNREFUSED") {
       return res
         .status(500)

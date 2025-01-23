@@ -1,15 +1,10 @@
 const process = require("process");
 const apiAdapter = require("../../../commons/api-adapter");
 const responseFormatter = require("../../../commons/http/format");
-const {
-  URL_SERVICE_INTERNAL_MANAGEMENT,
-  URL_SERVICE_ACCOUNT,
-  URL_SERVICE_ATTENDACE,
-} = process.env;
+const { URL_SERVICE_INTERNAL_MANAGEMENT, URL_SERVICE_ATTENDACE } = process.env;
 
 const api = apiAdapter(URL_SERVICE_ATTENDACE);
 const apiEmployee = apiAdapter(URL_SERVICE_INTERNAL_MANAGEMENT);
-const apiAccount = apiAdapter(URL_SERVICE_ACCOUNT);
 
 module.exports = async (req, res) => {
   try {
@@ -31,18 +26,14 @@ module.exports = async (req, res) => {
     const employees = await apiEmployee.get(`/employee`, {
       validateStatus: () => true,
     });
-    const users = await apiAccount.get(`/users`, {
-      validateStatus: () => true,
-    });
 
-    const userMap = new Map(users.data.data.map((user) => [user.id, user]));
     const employeeMap = new Map(
       employees.data.data.map((employee) => [employee.id, employee])
     );
 
     const mappedAttendances = attendances.data.data.map((attendance) => ({
       ...attendance,
-      verifiedBy: userMap.get(attendance.verified_by) || null,
+      verifiedBy: employeeMap.get(attendance.verified_by) || null,
       employee: employeeMap.get(attendance.employee_id) || null,
     }));
 
