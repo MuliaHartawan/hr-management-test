@@ -33,7 +33,7 @@ export const AttendancePage = () => {
       path: "/attendances",
     },
     {
-      label: `Details for ${data?.employee.first_name} ${data?.employee.last_name}`,
+      label: `Details for ${data?.employee?.first_name} ${data?.employee?.last_name}`,
       path: "/attendances/$attendanceId",
     },
   ];
@@ -43,14 +43,14 @@ export const AttendancePage = () => {
       <Page
         isLoading={isLoading}
         breadcrumbs={breadcrumbs}
-        title={`Details for ${data?.employee.first_name} ${data?.employee.last_name}`}
+        title={`Details for ${data?.employee?.first_name} ${data?.employee?.last_name}`}
       >
         <Table>
           <TableBody>
             <TableRow>
               <TableHead className="font-bold">Employee</TableHead>
               <TableCell>
-                {data?.employee.first_name} {data?.employee.last_name}
+                {data?.employee.first_name} {data?.employee?.last_name}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -74,7 +74,9 @@ export const AttendancePage = () => {
               <TableCell>
                 {data?.clock_in_photo ? (
                   <img
-                    src={`${import.meta.env.VITE_BASE_URL}/api/v1/uploads/${data?.clock_in_photo}`}
+                    src={`${import.meta.env.VITE_BASE_URL}/api/v1/uploads/${
+                      data?.clock_in_photo
+                    }`}
                     alt="Checkin"
                     className="w-64 h-64"
                   />
@@ -108,7 +110,9 @@ export const AttendancePage = () => {
               <TableCell>
                 {data?.clock_out_photo ? (
                   <img
-                    src={`${import.meta.env.VITE_BASE_URL}/api/v1/uploads/${data?.clock_out_photo}`}
+                    src={`${import.meta.env.VITE_BASE_URL}/api/v1/uploads/${
+                      data?.clock_out_photo
+                    }`}
                     alt="Checkout"
                     className="w-64 h-64"
                   />

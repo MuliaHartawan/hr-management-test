@@ -32,7 +32,11 @@ export const EmployeePage = () => {
       path: "/employees",
     },
     {
-      label: `Details for ${data?.first_name && data?.last_name ? `${data.first_name} ${data.last_name}` : "Loading..."}`,
+      label: `Details for ${
+        data?.first_name && data?.last_name
+          ? `${data?.first_name} ${data?.last_name}`
+          : "Loading..."
+      }`,
       path: `/employees/$employeeId`,
     },
   ];
@@ -42,7 +46,11 @@ export const EmployeePage = () => {
       <Page
         isLoading={isLoading}
         breadcrumbs={breadcrumbs}
-        title={`Details for ${data?.first_name && data?.last_name ? `${data.first_name} ${data.last_name}` : "Loading..."}`}
+        title={`Details for ${
+          data?.first_name && data?.last_name
+            ? `${data.first_name} ${data.last_name}`
+            : "Loading..."
+        }`}
       >
         <Table>
           <TableBody>

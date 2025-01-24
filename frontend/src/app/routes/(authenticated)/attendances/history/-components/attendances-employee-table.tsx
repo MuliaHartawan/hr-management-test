@@ -43,7 +43,7 @@ const columns: ColumnDef<Employee>[] = [
     header: "Name",
     cell: ({ row }) => (
       <p>
-        {row.original.first_name} {row.original.last_name}
+        {row.original?.first_name} {row.original?.last_name}
       </p>
     ),
   },

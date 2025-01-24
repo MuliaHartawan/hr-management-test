@@ -73,17 +73,19 @@ export const MapComponentLeaflet = ({
                     key={`clock-in-${index}`}
                     position={item.clock_in_location}
                     icon={generatePhotoMarker({
-                      photoUrl: `${import.meta.env.VITE_BASE_URL}/api/v1/uploads/${item.clock_in_photo}`,
+                      photoUrl: `${
+                        import.meta.env.VITE_BASE_URL
+                      }/api/v1/uploads/${item.clock_in_photo}`,
                       type: "clockIn",
                     })}
                   >
                     <Popup>
                       <p className="font-bold">
-                        Employee Name : {item.employee.first_name}{" "}
-                        {item.employee.last_name}
+                        Employee Name : {item.employee?.first_name}{" "}
+                        {item.employee?.last_name}
                       </p>
-                      <p>Department : {item.employee.department.name}</p>
-                      <p>Position : {item.employee.position.name}</p>
+                      <p>Department : {item.employee?.department?.name}</p>
+                      <p>Position : {item.employee?.position?.name}</p>
                       <p>Type : Check In</p>
                       <p>Clock In At : {formatDate(item.clock_in)}</p>
                     </Popup>
@@ -94,17 +96,19 @@ export const MapComponentLeaflet = ({
                     key={`clock-out-${index}`}
                     position={item.clock_out_location}
                     icon={generatePhotoMarker({
-                      photoUrl: `${import.meta.env.VITE_BASE_URL}/api/v1/uploads/${item.clock_out_photo}`,
+                      photoUrl: `${
+                        import.meta.env.VITE_BASE_URL
+                      }/api/v1/uploads/${item.clock_out_photo}`,
                       type: "clockOut",
                     })}
                   >
                     <Popup>
                       <p className="font-bold">
-                        Employee Name : {item.employee.first_name}{" "}
-                        {item.employee.last_name}
+                        Employee Name : {item.employee?.first_name}{" "}
+                        {item.employee?.last_name}
                       </p>
-                      <p>Department : {item.employee.department.name}</p>
-                      <p>Position : {item.employee.position.name}</p>
+                      <p>Department : {item.employee?.department?.name}</p>
+                      <p>Position : {item.employee?.position?.name}</p>
                       <p>Type : Check Out</p>
                       <p>Clock Out At : {formatDate(item.clock_out)}</p>
                     </Popup>
