@@ -27,8 +27,8 @@ module.exports = async (req, res) => {
 
     const data = {
       employeeCount: employeeCount.data.data,
-      attendanceCount: mappedAttendances,
-      attendanceMarker: attendanceMarker.data.data,
+      attendanceCount: attendanceCount.data.data.statusPending,
+      attendanceMarker: mappedAttendances
     };
 
     return res.json(

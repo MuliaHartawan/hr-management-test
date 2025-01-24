@@ -2,7 +2,6 @@ const { z } = require("zod");
 
 const employeeCreateSchema = z.object({
   user_id: z.number().int().min(1, "User ID is required"),
-  employee_id: z.number().int().min(1, "Employee ID is required"),
   first_name: z.string().min(1, "First name is required").max(100),
   last_name: z.string().max(100).optional(),
   department_id: z.number().min(1),
