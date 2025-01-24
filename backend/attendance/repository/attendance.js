@@ -66,7 +66,8 @@ const findByEmployeeId = async (employeeId, filters) => {
   const { startDate, endDate, status, page = 1, limit = 10 } = filters;
   const offset = (page - 1) * limit;
 
-  const whereClause = {};
+  const whereClause = { employee_id: employeeId };
+
   if (startDate && endDate) {
     whereClause.date = {
       [Op.between]: [startDate, endDate],
@@ -82,10 +83,6 @@ const findByEmployeeId = async (employeeId, filters) => {
     order: [["date", "DESC"]],
     offset: parseInt(offset),
     limit: parseInt(limit),
-
-    where: {
-      employee_id: employeeId,
-    },
   });
 };
 

@@ -1,8 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  AttendancesTable,
-  AttendancesTable as TableEmplyee,
-} from "./-components/attendances-employee-table";
+import { AttendancesTable as TableEmplyee } from "./-components/attendances-employee-table";
 import { PageGuard } from "@/app/_components/layouts/guard/page-guard";
 import Page from "@/app/_components/layouts/page/main";
 import { ROLE } from "@/common/enums/role-enum";
@@ -11,6 +8,7 @@ import { useEffect } from "react";
 import { useUser } from "@/app/_hooks/auth/use-user";
 import { jwtDecode } from "jwt-decode";
 import { Payload } from "@/types/payload";
+import { AttendancesMeTable } from "./-components/attendances-history-table-staff";
 
 export const Route = createFileRoute("/(authenticated)/attendances/history/")({
   component: RouteComponent,
@@ -61,7 +59,7 @@ function RouteComponent() {
         {user?.role.name === ROLE.HRD && !isLoading ? (
           <TableEmplyee />
         ) : (
-          <AttendancesTable />
+          <AttendancesMeTable />
         )}
       </Page>
     </PageGuard>

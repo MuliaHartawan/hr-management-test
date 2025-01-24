@@ -92,11 +92,7 @@ const columns: ColumnDef<Attendance>[] = [
   },
 ];
 
-const Actions = ({
-  table,
-}: {
-  table: Table<Attendance>;
-}) => {
+const Actions = ({ table }: { table: Table<Attendance> }) => {
   const token = localStorage.getItem("token");
   const decodedToken = jwtDecode<Payload>(token!);
   const { mutate } = useApproval();
@@ -125,7 +121,12 @@ const Actions = ({
   };
 
   const formatShiftTime = (time: string) => {
-    return time ? new Date(`1970-01-01T${time}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "N/A";
+    return time
+      ? new Date(`1970-01-01T${time}`).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "N/A";
   };
 
   return (
@@ -155,9 +156,9 @@ const Actions = ({
           <div className="flex gap-4 items-center">
             <p className="font-bold">{shiftAttendance.name}</p>
             <Badge className="text-xl " variant={"outline"}>
-            <p>{formatShiftTime(shiftAttendance.start_time)}</p>
-            <span>  -  </span>
-            <p>{formatShiftTime(shiftAttendance.end_time)}</p>
+              <p>{formatShiftTime(shiftAttendance.start_time)}</p>
+              <span> - </span>
+              <p>{formatShiftTime(shiftAttendance.end_time)}</p>
             </Badge>
           </div>
         )}
@@ -171,9 +172,16 @@ export function AttendancesTable() {
 
   const [rowSelection, setRowSelection] = useState({});
 
+  const filteredColumns = columns.filter((column) => {
+    if (column.id === "select") {
+      return user?.role.name === ROLE.HRD;
+    }
+    return true;
+  });
+
   const { table, isLoading, setPage, setPageSize, setSearchTerm } =
     useDataTable<Attendance>({
-      columns,
+      columns: filteredColumns,
       queryKey: "pending-attendances",
       rowSelection,
       setRowSelection,

@@ -45,11 +45,11 @@ export const MapComponentLeaflet = ({
 
   return (
     <Card className="map-page">
-      <CardContent style={{ height: "500px", position: "relative" }}>
+      <CardContent style={{ height: "500px" }}>
         <MapContainer
           center={currentLocation}
           zoom={13}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%", zIndex: 0 }}
           className="rounded-lg shadow"
         >
           <MapSearchControl currentLocation={currentLocation} />

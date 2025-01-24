@@ -16,18 +16,18 @@ const TopActions = () => {
   return (
     <ComponentGuard allowedRoles={[ROLE.STAFF]}>
       <div className="flex gap-5">
-        {/* Tampilkan Clock In jika status null atau clock_in null */}
         {(!statusAttendance || !statusAttendance.clock_in) && (
           <Link to="/attendances/presence/clock_in">
             <Button>Clock In</Button>
           </Link>
         )}
-        {/* Tampilkan Clock Out jika status ada dan clock_in sudah terisi */}
-        {statusAttendance && statusAttendance.clock_in && !statusAttendance.clock_out && (
-          <Link to="/attendances/presence/clock_out">
-            <Button>Clock Out</Button>
-          </Link>
-        )}
+        {statusAttendance &&
+          statusAttendance.clock_in &&
+          !statusAttendance.clock_out && (
+            <Link to="/attendances/presence/clock_out">
+              <Button>Clock Out</Button>
+            </Link>
+          )}
       </div>
     </ComponentGuard>
   );
@@ -54,7 +54,8 @@ const AttendancesPage = () => {
       <Page
         title={
           <>
-            Attendaces | <Badge className="text-xl " variant={"outline"}>
+            Attendaces |{" "}
+            <Badge className="text-xl " variant={"outline"}>
               <Clock ticking={true} timezone="Asia/Jakarta" format="hh:mm:ss" />
             </Badge>
           </>
