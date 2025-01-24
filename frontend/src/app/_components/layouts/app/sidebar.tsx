@@ -27,6 +27,7 @@ import {
   LandmarkIcon,
   SignalHighIcon,
   UserIcon,
+  Users,
 } from "lucide-react";
 
 const NavBarMenus: TNavbarMenu[] = [
@@ -54,6 +55,12 @@ const NavBarMenus: TNavbarMenu[] = [
         label: "Users",
         path: "/users",
         icon: <UserIcon />,
+        role: [ROLE.HRD],
+      },
+      {
+        label: "Employees",
+        path: "/employees",
+        icon: <Users />,
         role: [ROLE.HRD],
       },
       {

@@ -75,11 +75,7 @@ const columns: ColumnDef<Employee>[] = [
   },
 ];
 
-const Actions = ({
-  table,
-}: {
-  table: Table<Employee>;
-}) => {
+const Actions = ({ table }: { table: Table<Employee> }) => {
   const { data, isLoading } = useExport({
     employeeIds: table
       .getSelectedRowModel()
@@ -117,7 +113,6 @@ const Actions = ({
     </ComponentGuard>
   );
 };
-
 
 export function AttendancesTable() {
   const [rowSelection, setRowSelection] = useState({});

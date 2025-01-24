@@ -13,6 +13,10 @@ import { api } from "@/libs/axios/axios";
 import { DataTableResponse } from "@/types/table";
 import { DataTable } from "@/app/_components/ui/datatable/datatable";
 import { Checkbox } from "@/app/_components/ui/checkbox";
+import { jwtDecode } from "jwt-decode";
+import { Payload } from "@/types/payload";
+import { useGetShift } from "../-hooks/use-get-shift";
+import { Badge } from "@/app/_components/ui/badge";
 
 const columns: ColumnDef<Attendance>[] = [
   {
@@ -90,12 +94,13 @@ const columns: ColumnDef<Attendance>[] = [
 
 const Actions = ({
   table,
-  approvalId,
 }: {
   table: Table<Attendance>;
-  approvalId: number;
 }) => {
+  const token = localStorage.getItem("token");
+  const decodedToken = jwtDecode<Payload>(token!);
   const { mutate } = useApproval();
+  const { data: shiftAttendance } = useGetShift(decodedToken.employee_id);
 
   const ids = table
     .getFilteredSelectedRowModel()
@@ -103,7 +108,7 @@ const Actions = ({
 
   const handleApprove = () => {
     mutate({
-      approvedId: approvalId,
+      approvedId: decodedToken.user_id,
       ids,
       status: "APPROVED",
     });
@@ -112,34 +117,52 @@ const Actions = ({
 
   const handleReject = () => {
     mutate({
-      approvedId: approvalId,
+      approvedId: decodedToken.user_id,
       ids,
       status: "REJECTED",
     });
     table.setRowSelection({});
   };
 
+  const formatShiftTime = (time: string) => {
+    return time ? new Date(`1970-01-01T${time}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "N/A";
+  };
+
   return (
-    <ComponentGuard allowedRoles={[ROLE.HRD]}>
-      <div className="flex items-center space-x-2">
-        <Button
-          key="approve"
-          variant="outline"
-          onClick={() => handleApprove()}
-          className="text-green-500"
-        >
-          Approve
-        </Button>
-        <Button
-          key="reject"
-          variant="outline"
-          onClick={() => handleReject()}
-          className="text-red-500"
-        >
-          Reject
-        </Button>
-      </div>
-    </ComponentGuard>
+    <>
+      <ComponentGuard allowedRoles={[ROLE.HRD]}>
+        <div className="flex items-center space-x-2">
+          <Button
+            key="approve"
+            variant="outline"
+            onClick={() => handleApprove()}
+            className="text-green-500"
+          >
+            Approve
+          </Button>
+          <Button
+            key="reject"
+            variant="outline"
+            onClick={() => handleReject()}
+            className="text-red-500"
+          >
+            Reject
+          </Button>
+        </div>
+      </ComponentGuard>
+      <ComponentGuard allowedRoles={[ROLE.STAFF]}>
+        {shiftAttendance && (
+          <div className="flex gap-4 items-center">
+            <p className="font-bold">{shiftAttendance.name}</p>
+            <Badge className="text-xl " variant={"outline"}>
+            <p>{formatShiftTime(shiftAttendance.start_time)}</p>
+            <span>  -  </span>
+            <p>{formatShiftTime(shiftAttendance.end_time)}</p>
+            </Badge>
+          </div>
+        )}
+      </ComponentGuard>
+    </>
   );
 };
 
@@ -185,7 +208,7 @@ export function AttendancesTable() {
       onPageChange={setPage}
       onPageSizeChange={setPageSize}
       onSearch={setSearchTerm}
-      actions={<Actions table={table} approvalId={user?.id} />}
+      actions={<Actions table={table} />}
     />
   );
 }

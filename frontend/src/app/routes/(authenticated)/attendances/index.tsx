@@ -9,17 +9,25 @@ import { ComponentGuard } from "@/app/_components/layouts/guard/component-guard"
 import { useEffect } from "react";
 import Clock from "react-live-clock";
 import { Badge } from "@/app/_components/ui/badge";
+import { useGetStatusAttendance } from "./-hooks/use-get-status-attendance";
 
 const TopActions = () => {
+  const { data: statusAttendance } = useGetStatusAttendance();
   return (
     <ComponentGuard allowedRoles={[ROLE.STAFF]}>
       <div className="flex gap-5">
-        <Link to="/attendances/presence/clock_in">
-          <Button>Clock In</Button>
-        </Link>
-        <Link to="/attendances/presence/clock_out">
-          <Button>Clock Out</Button>
-        </Link>
+        {/* Tampilkan Clock In jika status null atau clock_in null */}
+        {(!statusAttendance || !statusAttendance.clock_in) && (
+          <Link to="/attendances/presence/clock_in">
+            <Button>Clock In</Button>
+          </Link>
+        )}
+        {/* Tampilkan Clock Out jika status ada dan clock_in sudah terisi */}
+        {statusAttendance && statusAttendance.clock_in && !statusAttendance.clock_out && (
+          <Link to="/attendances/presence/clock_out">
+            <Button>Clock Out</Button>
+          </Link>
+        )}
       </div>
     </ComponentGuard>
   );

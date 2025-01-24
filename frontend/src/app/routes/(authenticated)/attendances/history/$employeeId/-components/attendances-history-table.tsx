@@ -59,11 +59,11 @@ const columns: ColumnDef<Attendance>[] = [
   },
 ];
 
-export function AttendancesTable() {
+export function AttendancesTable({ employee_id }: { employee_id: number }) {
   const { table, isLoading, setPage, setPageSize, setSearchTerm } =
     useDataTable<Attendance>({
       columns,
-      queryKey: "attendances",
+      queryKey: "attendances-user",
       fetchData: async (params) => {
         const response = await api.get<DataTableResponse<Attendance>>(
           "/attendance",
@@ -71,6 +71,7 @@ export function AttendancesTable() {
             params: {
               page: params.page,
               limit: params.pageSize,
+              employeeIds: [employee_id],
             },
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
