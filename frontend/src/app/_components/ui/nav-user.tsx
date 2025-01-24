@@ -37,12 +37,14 @@ const LogOutButton = () => {
 
   const onLogout = () => {
     try {
+      localStorage.removeItem("token");
+
       toast({
         title: "Logging out",
         description: "Successfully logged out",
       });
-      localStorage.clear();
-      window.location.replace("/auth/login");
+
+      window.location.replace("/");
     } catch {
       toast({
         description: "Error logging out",

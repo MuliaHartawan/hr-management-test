@@ -96,7 +96,8 @@ const Actions = ({ table }: { table: Table<Attendance> }) => {
   const token = localStorage.getItem("token");
   const decodedToken = jwtDecode<Payload>(token!);
   const { mutate } = useApproval();
-  const { data: shiftAttendance } = useGetShift(decodedToken.employee_id);
+
+  const { data: shiftAttendance } = useGetShift();
 
   const ids = table
     .getFilteredSelectedRowModel()
